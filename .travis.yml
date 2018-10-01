@@ -1,12 +1,10 @@
-language: bash
-
-
+language: java
 
 addons:
-    apt:
-        packages:
-        - imagemagick   
-        - ghostscript
+  apt:
+    packages:
+    - imagemagick   
+    - ghostscript
 
 
 # before_install:

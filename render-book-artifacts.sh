@@ -61,20 +61,16 @@ ARTIFACT_TAG=output-artifacts
 
 
 git remote set-url origin $URI
-git checkout -b $ARTIFACT_TAG
+
 
 BOOK_CHECKOUT_OUTPUT=$BOOK_CHECKOUT/output
 
 
-## 
-git checkout --orphan $ARTIFACT_TAG
-git rm -rf .
+git checkout $ARTIFACT_TAG
 
 mkdir -p $BOOK_CHECKOUT_OUTPUT
 
-if [ -d  $BOOK_CHECKOUT_OUTPUT ]; then 
-	mkdir -p $BOOK_CHECKOUT_OUTPUT
-fi 
+
 git add $BOOK_CHECKOUT_OUTPUT
 cp $BUILD_PREPRESS $BOOK_CHECKOUT_OUTPUT/${BUILD_PREPRESS_FN}
 cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
@@ -82,6 +78,6 @@ cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
 git add $BOOK_CHECKOUT_OUTPUT/* 
 git commit -am "adding built artifacts"
 # git push origin --delete origin/$ARTIFACT_TAG
-git push --delete origin $ARTIFACT_TAG
-git push --force origin $ARTIFACT_TAG
+#git push --delete origin $ARTIFACT_TAG
+#git push --force origin $ARTIFACT_TAG
 

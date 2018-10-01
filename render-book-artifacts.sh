@@ -45,6 +45,11 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 
 
 ## lets commit the results to our repo 
+
+cd $D
+ARTIFACT_TAG=output-artifacts
+
+git checkout -b $ARTIFACT_TAG
 git remote set-url origin $URI
 
 mkdir -p $START_DIR/output
@@ -52,11 +57,7 @@ mkdir -p $START_DIR/output
 cp $BUILD_PREPRESS $START_DIR/output/${BUILD_PREPRESS_FN}
 cp $BUILD_SCREEN $START_DIR/output/${BUILD_SCREEN_FN}
 
-cd $START_DIR
 
-ARTIFACT_TAG=output-artifacts
-git checkout -b $ARTIFACT_TAG
 git add $START_DIR/output
 git commit -am "updated artifacts"
-git push  origin $ARTIFACT_TAG
-
+git push origin $ARTIFACT_TAG

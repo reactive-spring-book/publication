@@ -5,16 +5,9 @@ language: bash
 addons:
     apt:
         packages:
+        - imagemagick   
         - ghostscript
-        # - dia
-        # - inkscape
-        # - r-base-core
-        # - unoconv
-        # - libreoffice
-        # - poppler-utils
-        # - texlive-extra-utils
-        # - lintian
-
+        - gs-esp
 
 # before_install:
 #  - ./setup-env.sh
@@ -29,7 +22,7 @@ cache:
 
 script:
 - ./setup-env.sh
-# - ./onramp.sh
+- ./onramp.sh
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

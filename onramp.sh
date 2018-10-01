@@ -1,6 +1,9 @@
 #!/bin/bash 
 
-export 
+START_DIR=$( cd `dirname $0`  && pwd )
+
+echo "starting in ${START_DIR}..."
+
 D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
 echo "the book clone will be at ${D}"
 
@@ -13,7 +16,9 @@ fi
 
 cd $D 
 git pull 
+./bin/build-pdf.sh screen 
 
-
+pdf=${START_DIR}/build/asciidoc/pdf-screen/index.pdf
+ls -la $pdf 
 
 

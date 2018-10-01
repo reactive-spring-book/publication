@@ -1,11 +1,10 @@
 language: java
 
-# addons:
-#   apt:
-#     packages:
-#     - imagemagick   
-#     - ghostscript
-#     - rvm
+addons:
+  apt:
+    packages:
+    - ghostscript
+    - rvm
 
 
 # before_install:

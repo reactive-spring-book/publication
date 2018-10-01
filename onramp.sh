@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-
+export 
 D=${TMPDIR}/book 
 echo "the book clone will be at ${D}"
 

@@ -77,7 +77,5 @@ cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
 
 git add $BOOK_CHECKOUT_OUTPUT/* 
 git commit -am "adding built artifacts"
-# git push origin --delete origin/$ARTIFACT_TAG
-#git push --delete origin $ARTIFACT_TAG
-#git push --force origin $ARTIFACT_TAG
+git push --force origin $ARTIFACT_TAG
 

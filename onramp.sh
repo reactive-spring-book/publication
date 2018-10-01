@@ -1,16 +1,18 @@
 #!/bin/bash 
 
 
-D=`pwd`/book 
+D=${TMPDIR}/book 
+echo "the book clone will be at ${D}"
 
 if [ ! -d $D ] ; then 
 	git clone https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git $D 
-	cd $D  
+	echo "cloned the http://github.com/joshlong/reactive-spring-book into ${D}."
+	echo "Now, going to attempt a book build..."
 fi 
 
-
-cd book 
+cd $D 
 git pull 
+
 
 
 

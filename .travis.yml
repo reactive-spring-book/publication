@@ -12,7 +12,7 @@ cache:
   - $HOME/.rvm 
 
 script:
-- echo "running script.."
+- ./onramp.sh
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

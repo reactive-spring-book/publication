@@ -9,9 +9,10 @@ jdk:
 cache:
   directories:
   - $HOME/.m2/repository/
+  - $HOME/.rvm 
 
 script:
--  mvn -e verify deploy
+- echo "running script.."
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

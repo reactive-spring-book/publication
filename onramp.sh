@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 export 
-D=${TMPDIR}/book 
+D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
 echo "the book clone will be at ${D}"
 
 if [ ! -d $D ] ; then 

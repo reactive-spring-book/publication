@@ -6,7 +6,8 @@ sudo add-apt-repository -y ppa:moti-p/cc
 sudo apt-get update
 sudo apt-get -y --reinstall install ghostscript
 sudo apt-get -y --reinstall install gs-esp
-sudo apt-get -y --reinstall install imagemagick
+# sudo apt-get -y --reinstall install imagemagick
+gs 
 
 # RVM ..  
 echo "exiting!!!!!!!!!"

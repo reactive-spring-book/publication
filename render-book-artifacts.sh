@@ -41,8 +41,10 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_SCREEN
 export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 ./bin/build-pdf.sh 
 
+ls -la $BUILD_SCREEN
+ls -la $BUILD_PREPRESS
 
-
+exit 
 ## lets commit the results to our repo 
 
 cd $BOOK_CHECKOUT

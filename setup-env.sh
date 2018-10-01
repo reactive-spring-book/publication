@@ -1,14 +1,13 @@
 #!/bin/bash
 
 # Ghostscript 
-sudo -E apt-get -yq --no-install-suggests --no-install-recommends install imagemagick ghostscript rvm 
+#sudo -E apt-get -yq --no-install-suggests --no-install-recommends install imagemagick ghostscript rvm 
 
 # sudo add-apt-repository -y ppa:moti-p/cc
 # sudo apt-get update
 # sudo apt-get -y --reinstall install ghostscript
 # sudo apt-get -y --reinstall install gs-esp
 # sudo apt-get -y --reinstall install imagemagick
-
 
 # RVM ..  
 # sudo apt-get install software-properties-common

@@ -49,6 +49,8 @@ ls -la $BUILD_PREPRESS
 
 cd $BOOK_CHECKOUT
 
+"book checkout is : `pwd` "  
+
 ARTIFACT_TAG=output-artifacts
 
 
@@ -56,6 +58,9 @@ git remote set-url origin $URI
 git checkout -b $ARTIFACT_TAG
 
 BOOK_CHECKOUT_OUTPUT=$BOOK_CHECKOUT/output
+
+mkdir -p $BOOK_CHECKOUT_OUTPUT
+
 if [ -d  $BOOK_CHECKOUT_OUTPUT ]; then 
 	mkdir -p $BOOK_CHECKOUT_OUTPUT
 	git add $BOOK_CHECKOUT_OUTPUT

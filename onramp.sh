@@ -22,7 +22,9 @@ git pull
 mkdir -p $START_DIR/output
 cp index.pdf $START_DIR/output/book-screen.pdf 
 cd $START_DIR
+cat ${START_DIR}/.git/config 
 git add -am $START_DIR/output/book-screen.pdf  
+git remote set-url origin $URI
 git commit -am updated\ screen 
-git push $URI 
+git push  
 

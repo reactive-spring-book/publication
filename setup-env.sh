@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Ghostscript 
+sudo -E apt-get -yq --no-install-suggests --no-install-recommends install imagemagick ghostscript rvm 
 
 # sudo add-apt-repository -y ppa:moti-p/cc
 # sudo apt-get update

@@ -1,4 +1,20 @@
-language: java
+language: bash
+
+
+
+addons:
+    apt:
+        packages:
+        - ghostscript
+        # - dia
+        # - inkscape
+        # - r-base-core
+        # - unoconv
+        # - libreoffice
+        # - poppler-utils
+        # - texlive-extra-utils
+        # - lintian
+
 
 # before_install:
 #  - ./setup-env.sh
@@ -13,7 +29,7 @@ cache:
 
 script:
 - ./setup-env.sh
-- ./onramp.sh
+# - ./onramp.sh
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

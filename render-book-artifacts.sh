@@ -10,6 +10,8 @@ if [ -d $BOOK_CHECKOUT ]; then
 	rm -rf $BOOK_CHECKOUT 
 fi 
 
+
+
 echo "the book clone will be at ${BOOK_CHECKOUT}"
 
 URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git 
@@ -21,6 +23,9 @@ if [ ! -d $BOOK_CHECKOUT ] ; then
 fi 
 
 cd $BOOK_CHECKOUT 
+echo "inside the book checkout directory ${BOOK_CHECKOUT}." 
+pwd 
+
 git pull 
 
 
@@ -49,7 +54,8 @@ ls -la $BUILD_PREPRESS
 
 cd $BOOK_CHECKOUT
 
-"book checkout is : `pwd` "  
+echo "book checkout is : `pwd` " 
+mkdir -p $BOOK_CHECKOUT
 
 ARTIFACT_TAG=output-artifacts
 

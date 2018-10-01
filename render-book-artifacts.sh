@@ -60,4 +60,5 @@ cp $BUILD_SCREEN $START_DIR/output/${BUILD_SCREEN_FN}
 
 git add $START_DIR/output
 git commit -am "updated artifacts"
+git pull origin $ARTIFACT_TAG
 git push origin $ARTIFACT_TAG

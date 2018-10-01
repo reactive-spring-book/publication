@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ghostscript 
-gs || sudo apt install ghostscript
+sudo apt install ghostscript
 
 # RVM ..  
 

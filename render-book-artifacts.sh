@@ -75,6 +75,6 @@ fi
 cp $BUILD_PREPRESS $BOOK_CHECKOUT_OUTPUT/${BUILD_PREPRESS_FN}
 cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
 
-git push origin --delete origin/$ARTIFACT_TAG
 git commit -am "updated artifacts"
+git push origin --delete origin/$ARTIFACT_TAG
 git push --force origin $ARTIFACT_TAG

@@ -6,21 +6,21 @@ echo "starting in ${START_DIR}..."
 
 D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
 
-if [ -d $D ]; then 
-	rm -rf $D 
+if [ -d $BOOK_CHECKOUT ]; then 
+	rm -rf $BOOK_CHECKOUT 
 fi 
 
-echo "the book clone will be at ${D}"
+echo "the book clone will be at ${BOOK_CHECKOUT}"
 
 URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git 
 
-if [ ! -d $D ] ; then 
-	msg="cloned the http://github.com/joshlong/reactive-spring-book into ${D}.."
-	mkdir -p $(dirname $D)
-	git clone $URI $D && echo $msg || echo "couldn't clone $URI .."
+if [ ! -d $BOOK_CHECKOUT ] ; then 
+	msg="cloned the http://github.com/joshlong/reactive-spring-book into ${BOOK_CHECKOUT}.."
+	mkdir -p $(dirname $BOOK_CHECKOUT)
+	git clone $URI $BOOK_CHECKOUT && echo $msg || echo "couldn't clone $URI .."
 fi 
 
-cd $D 
+cd $BOOK_CHECKOUT 
 git pull 
 
 
@@ -45,20 +45,22 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 
 ## lets commit the results to our repo 
 
-cd $D
+cd $BOOK_CHECKOUT
 ARTIFACT_TAG=output-artifacts
 
 
 git remote set-url origin $URI
 git checkout -b $ARTIFACT_TAG
 
-if [ -d  $D/output ]; then 
-	mkdir -p $D/output
-	git add $D/output
+git pull origin $ARTIFACT_TAG --allow-unrelated-histories
+
+if [ -d  $BOOK_CHECKOUT/output ]; then 
+	mkdir -p $BOOK_CHECKOUT/output
+	git add $BOOK_CHECKOUT/output
 fi 
 
-cp $BUILD_PREPRESS $D/output/${BUILD_PREPRESS_FN}
-cp $BUILD_SCREEN $D/output/${BUILD_SCREEN_FN}
+cp $BUILD_PREPRESS $BOOK_CHECKOUT/output/${BUILD_PREPRESS_FN}
+cp $BUILD_SCREEN $BOOK_CHECKOUT/output/${BUILD_SCREEN_FN}
 
 git commit -am "updated artifacts"
 git push --force origin $ARTIFACT_TAG

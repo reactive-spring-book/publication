@@ -4,7 +4,7 @@ START_DIR=$( cd `dirname $0`  && pwd )
 
 echo "starting in ${START_DIR}..."
 
-D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
+BOOK_CHECKOUT=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
 
 if [ -d $BOOK_CHECKOUT ]; then 
 	rm -rf $BOOK_CHECKOUT 

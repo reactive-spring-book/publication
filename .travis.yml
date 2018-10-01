@@ -7,7 +7,7 @@ addons:
         packages:
         - imagemagick   
         - ghostscript
-        - gs-esp
+
 
 # before_install:
 #  - ./setup-env.sh

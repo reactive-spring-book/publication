@@ -1,0 +1,18 @@
+language: java
+
+before_install:
+- ./setup-env.sh
+
+jdk:
+- oraclejdk8
+
+cache:
+  directories:
+  - $HOME/.m2/repository/
+
+script:
+-  mvn -e verify deploy
+
+env:
+- SPRING_PROFILES_ACTIVE=ci
+

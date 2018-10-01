@@ -69,12 +69,15 @@ mkdir -p $BOOK_CHECKOUT_OUTPUT
 
 if [ -d  $BOOK_CHECKOUT_OUTPUT ]; then 
 	mkdir -p $BOOK_CHECKOUT_OUTPUT
-	git add $BOOK_CHECKOUT_OUTPUT
 fi 
+
+git add $BOOK_CHECKOUT_OUTPUT
 
 cp $BUILD_PREPRESS $BOOK_CHECKOUT_OUTPUT/${BUILD_PREPRESS_FN}
 cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
 
-git commit -am "updated artifacts"
-git push origin --delete origin/$ARTIFACT_TAG
+git add $BOOK_CHECKOUT_OUTPUT/* 
+git commit -am "adding built artifacts"
+# git push origin --delete origin/$ARTIFACT_TAG
+git push --delete origin $ARTIFACT_TAG
 git push --force origin $ARTIFACT_TAG

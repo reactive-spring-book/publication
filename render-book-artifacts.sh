@@ -24,7 +24,6 @@ cd $D
 git pull 
 
 
-
 ## 
 OUTPUT_DIR=$HOME/output
 
@@ -49,16 +48,17 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 cd $D
 ARTIFACT_TAG=output-artifacts
 
-git checkout -b $ARTIFACT_TAG
+
 git remote set-url origin $URI
+git checkout -b $ARTIFACT_TAG
 
-mkdir -p $START_DIR/output
+if [ -d  $D/output ]; then 
+	mkdir -p $D/output
+	git add $D/output
+fi 
 
-cp $BUILD_PREPRESS $START_DIR/output/${BUILD_PREPRESS_FN}
-cp $BUILD_SCREEN $START_DIR/output/${BUILD_SCREEN_FN}
+cp $BUILD_PREPRESS $D/output/${BUILD_PREPRESS_FN}
+cp $BUILD_SCREEN $D/output/${BUILD_SCREEN_FN}
 
-
-git add $START_DIR/output
 git commit -am "updated artifacts"
-git pull origin $ARTIFACT_TAG
-git push origin $ARTIFACT_TAG
+git push --force origin $ARTIFACT_TAG

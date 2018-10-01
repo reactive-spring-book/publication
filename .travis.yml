@@ -5,6 +5,7 @@ addons:
     packages:
     - imagemagick   
     - ghostscript
+    - rvm
 
 
 # before_install:

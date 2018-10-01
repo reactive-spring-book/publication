@@ -1,11 +1,11 @@
 language: java
 
 before_install:
-- echo "before_install" || ./setup-env.sh
+ - ./setup-env.sh
 
 jdk:
-- oraclejdk8
-
+ - oraclejdk8
+ 
 cache:
   directories:
   - $HOME/.m2/repository/

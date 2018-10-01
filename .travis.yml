@@ -20,7 +20,7 @@ cache:
 
 script:
 - ./setup-env.sh
-- ./onramp.sh
+- ./render-book-artifacts.sh
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

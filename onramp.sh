@@ -25,6 +25,7 @@ cd $START_DIR
 cat ${START_DIR}/.git/config 
 git add $START_DIR/output/book-screen.pdf  
 git remote set-url origin $URI
-git commit -am updated\ screen 
-git push  origin master 
+git checkout -b output-artifacts
+git commit -am "updated artifacts"
+git push  origin output-artifacts
 

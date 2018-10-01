@@ -44,25 +44,26 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 ls -la $BUILD_SCREEN
 ls -la $BUILD_PREPRESS
 
-exit 
+
 ## lets commit the results to our repo 
 
 cd $BOOK_CHECKOUT
+
 ARTIFACT_TAG=output-artifacts
 
 
 git remote set-url origin $URI
 git checkout -b $ARTIFACT_TAG
 
-git pull origin $ARTIFACT_TAG --allow-unrelated-histories
-
-if [ -d  $BOOK_CHECKOUT/output ]; then 
-	mkdir -p $BOOK_CHECKOUT/output
-	git add $BOOK_CHECKOUT/output
+BOOK_CHECKOUT_OUTPUT=$BOOK_CHECKOUT/output
+if [ -d  $BOOK_CHECKOUT_OUTPUT ]; then 
+	mkdir -p $BOOK_CHECKOUT_OUTPUT
+	git add $BOOK_CHECKOUT_OUTPUT
 fi 
 
-cp $BUILD_PREPRESS $BOOK_CHECKOUT/output/${BUILD_PREPRESS_FN}
-cp $BUILD_SCREEN $BOOK_CHECKOUT/output/${BUILD_SCREEN_FN}
+cp $BUILD_PREPRESS $BOOK_CHECKOUT_OUTPUT/${BUILD_PREPRESS_FN}
+cp $BUILD_SCREEN $BOOK_CHECKOUT_OUTPUT/${BUILD_SCREEN_FN}
 
+git push origin --delete origin/$ARTIFACT_TAG
 git commit -am "updated artifacts"
 git push --force origin $ARTIFACT_TAG

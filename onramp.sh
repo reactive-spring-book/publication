@@ -7,10 +7,11 @@ echo "starting in ${START_DIR}..."
 D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
 echo "the book clone will be at ${D}"
 
+URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git 
+
 if [ ! -d $D ] ; then 
 	msg="cloned the http://github.com/joshlong/reactive-spring-book into ${D}.."
 	mkdir -p $(dirname $D)
-	URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git 
 	git clone $URI $D && echo $msg || echo "couldn't clone $URI .."
 fi 
 
@@ -18,7 +19,10 @@ cd $D
 git pull 
 ./bin/build-pdf.sh screen 
 
-pdf=${START_DIR}/build/asciidoc/pdf-screen/index.pdf
-ls -la $pdf 
-
+mkdir -p $START_DIR/output
+cp index.pdf $START_DIR/output/book-screen.pdf 
+cd $START_DIR
+git add -am $START_DIR/output/book-screen.pdf  
+git commit -am updated\ screen 
+git push $URI 
 

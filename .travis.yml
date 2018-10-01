@@ -1,7 +1,7 @@
 language: java
 
 before_install:
-- ./setup-env.sh
+- echo "before_install" || ./setup-env.sh
 
 jdk:
 - oraclejdk8

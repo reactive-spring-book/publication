@@ -7,9 +7,8 @@ sudo add-apt-repository -y ppa:moti-p/cc
 sudo apt-get update
 
 sudo apt-get -y --reinstall install ghostscript
-sudo apt-get -y --reinstall install gs-esp
-sudo apt-get -y --reinstall install imagemagick
-sudo apt-get -y --reinstall software-properties-common
+sudo apt-get -y --reinstall install rvm
+sudo apt-get -y --reinstall install software-properties-common
 
 
 rvm install "ruby-2.3.1"

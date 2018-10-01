@@ -5,6 +5,11 @@ START_DIR=$( cd `dirname $0`  && pwd )
 echo "starting in ${START_DIR}..."
 
 D=${TMPDIR:-${TRAVIS_TMPDIR:-/tmp}}/book 
+
+if [ -d $D ]; then 
+	rm -rf $D 
+fi 
+
 echo "the book clone will be at ${D}"
 
 URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git 

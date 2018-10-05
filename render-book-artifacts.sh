@@ -36,7 +36,7 @@ git pull
 echo "we need to see what the tree shows us"
 cd $BOOK_CHECKOUT
 ls -la 
-cat repositories.txt | while read l ; do git clone $l   ; done 
+cat $START_DIR/repositories.txt | while read l ; do git clone $l   ; done 
 ls -la 
 ## 
 

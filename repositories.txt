@@ -1,3 +1,3 @@
-git@github.com:reactive-spring-book/io.git
-git@github.com:reactive-spring-book/parent.git
-git@github.com:reactive-spring-book/data.git
+https://github.com/reactive-spring-book/io.git
+https://github.com/reactive-spring-book/parent.git
+https://github.com/reactive-spring-book/data.git

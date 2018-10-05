@@ -34,11 +34,15 @@ git pull
 ## is in place so that our code snippets don't fail
 ## 
 echo "we need to see what the tree shows us"
-cd $BOOK_CHECKOUT
+
+mkdir -p $BOOK_CHECKOUT/code && cd $BOOK_CHECKOUT/code 
+
 ls -la 
 cat $START_DIR/repositories.txt | while read l ; do git clone $l   ; done 
 ls -la 
-## 
+##  
+
+cd $BOOK_CHECKOUT
 
 
 ## 

@@ -30,6 +30,18 @@ git pull
 
 
 ## 
+## Now we need to make sure the required code 
+## is in place so that our code snippets don't fail
+## 
+echo "we need to see what the tree shows us"
+cd $BOOK_CHECKOUT
+ls -la 
+cat repositories.txt | while read l ; do git clone $l   ; done 
+ls -la 
+## 
+
+
+## 
 OUTPUT_DIR=$HOME/output
 
 BUILD_SCREEN_FN=book-screen.pdf 

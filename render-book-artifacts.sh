@@ -35,7 +35,7 @@ git pull
 ## 
 echo "we need to see what the tree shows us"
 
-mkdir -p $BOOK_CHECKOUT/code && cd $BOOK_CHECKOUT/code 
+mkdir -p $BOOK_CHECKOUT/../code && cd $BOOK_CHECKOUT/../code 
 
 
 cat $START_DIR/repositories.txt | while read l ; do git clone $l   ; done 

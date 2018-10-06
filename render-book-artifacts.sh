@@ -40,13 +40,6 @@ mkdir -p $BOOK_CHECKOUT/../code && cd $BOOK_CHECKOUT/../code
 
 cat $START_DIR/repositories.txt | while read l ; do git clone $l   ; done 
 
-echo "START_DIR: ${START_DIR}"
-
-echo "BOOK_CHECKOUT: ${BOOK_CHECKOUT}"
-
-echo "CODE:" `pwd `
-ls -la 
-##  
 
 cd $BOOK_CHECKOUT
 

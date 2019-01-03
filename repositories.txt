@@ -1,4 +1,3 @@
-git@github.com:joshlong/reactive-spring-book.git
 git@github.com:reactive-spring-book/publication.git
 git@github.com:reactive-spring-book/io.git
 git@github.com:reactive-spring-book/testing.git

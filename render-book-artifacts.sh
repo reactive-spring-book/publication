@@ -61,14 +61,12 @@ export BUILD_PDF_OUTPUT_FILE=$BUILD_SCREEN
 export BUILD_PDF_OUTPUT_FILE=$BUILD_PREPRESS
 ./bin/build-pdf.sh 
 
-
+./bin/epub.sh 
 
 
 ls -la $BUILD_SCREEN
 ls -la $BUILD_PREPRESS
-ls -la $BUILD_EPUB3
 
-tree 
 
 
 ## lets commit the results to our repo 

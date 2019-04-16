@@ -5,11 +5,6 @@ addons:
     packages:
     - ghostscript
 
-
-
-# before_install:
-#  - ./setup-env.sh
-
 jdk:
  - oraclejdk8
 
@@ -22,7 +17,7 @@ cache:
 script:
 - ./setup-env.sh
 - ./epub.sh
-# - ./render-book-artifacts.sh
+#- ./render-book-artifacts.sh
 
 
 env:

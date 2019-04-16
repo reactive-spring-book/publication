@@ -21,7 +21,9 @@ cache:
 
 script:
 - ./setup-env.sh
-- ./render-book-artifacts.sh
+- ./epub.sh
+# - ./render-book-artifacts.sh
+
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

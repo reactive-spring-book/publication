@@ -96,3 +96,7 @@ git commit -am "adding built artifacts"
 git push origin $ARTIFACT_TAG
 echo "just ran: git push origin ${ARTIFACT_TAG}.."
 
+
+#
+cd $BOOK_CHECKOUT
+pwd 

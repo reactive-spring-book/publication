@@ -1,6 +1,6 @@
 #!/bin/bash
 pwd 
-find . 
+ls -la
 cd 
 pwd
-find . 
+ls -la 

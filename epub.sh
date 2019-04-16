@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "epub..."
+tree 
+echo "finished epub.sh"

@@ -1,24 +1,21 @@
 language: java
 
-addons:
-  apt:
-    packages:
-    - ghostscript
+before_install:
+- cp .travis.settings.xml $HOME/.m2/settings.xml
 
 jdk:
- - oraclejdk8
+- oraclejdk8
 
 cache:
   directories:
   - $HOME/.m2/repository/
-  - $HOME/.rvm 
+  - $HOME/.rvm
   - $HOME/.bundle
+  - $HOME/bin/kindlegen/
 
 script:
-- ./setup-env.sh
-- ./render-book-artifacts.sh
-# - ./epub.sh
+- mvn -e verify deploy
+- ci/render-book.sh
 
 env:
 - SPRING_PROFILES_ACTIVE=ci
-

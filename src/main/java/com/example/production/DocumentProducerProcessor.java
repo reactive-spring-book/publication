@@ -24,23 +24,20 @@ class DocumentProducerProcessor implements SmartInitializingSingleton {
 
 	@Override
 	public void afterSingletonsInstantiated() {
-		log.info("there are " + this.producers.length + " " + DocumentProducer.class.getName() + " instances");
+		log.info("there are " + this.producers.length + " "
+				+ DocumentProducer.class.getName() + " instances");
 		for (var producer : this.producers) {
 			try {
 
-
 				/*
-				// todo don't let this get checked in
-				if (!(producer instanceof PrepressPdfProducer)) {
-					System.err.println("REMOVE THIS!");
-					continue;
-				}
-				*/
+				 * // todo don't let this get checked in if (!(producer instanceof
+				 * PrepressPdfProducer)) { System.err.println("REMOVE THIS!"); continue; }
+				 */
 				log.info("... running " + producer.getClass().getName());
 				File[] files = producer.produce(this.asciidoctor);
 				for (File f : files) {
 					Assert.isTrue(f.exists(), "the output file " + f.getAbsolutePath()
-						+ " does not exist, but should");
+							+ " does not exist, but should");
 				}
 				this.collectOutputFiles(producer, files);
 			}
@@ -51,10 +48,12 @@ class DocumentProducerProcessor implements SmartInitializingSingleton {
 	}
 
 	private void collectOutputFiles(DocumentProducer producer, File[] files)
-		throws Exception {
-		var name = producer.getClass().getSimpleName().toLowerCase().replace("producer", "");
+			throws Exception {
+		var name = producer.getClass().getSimpleName().toLowerCase().replace("producer",
+				"");
 		var target = new File(this.properties.getTarget(), name);
-		Assert.isTrue(target.exists() || target.mkdirs(), "the target directory " + target.getAbsolutePath() + " does not exist");
+		Assert.isTrue(target.exists() || target.mkdirs(),
+				"the target directory " + target.getAbsolutePath() + " does not exist");
 		for (var inputFile : files) {
 			copy(inputFile, new File(target, inputFile.getName()));
 		}

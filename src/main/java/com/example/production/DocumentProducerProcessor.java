@@ -28,11 +28,6 @@ class DocumentProducerProcessor implements SmartInitializingSingleton {
 				+ DocumentProducer.class.getName() + " instances");
 		for (var producer : this.producers) {
 			try {
-
-				/*
-				 * // todo don't let this get checked in if (!(producer instanceof
-				 * PrepressPdfProducer)) { System.err.println("REMOVE THIS!"); continue; }
-				 */
 				log.info("... running " + producer.getClass().getName());
 				File[] files = producer.produce(this.asciidoctor);
 				for (File f : files) {

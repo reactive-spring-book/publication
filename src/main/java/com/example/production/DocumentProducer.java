@@ -30,7 +30,6 @@ public interface DocumentProducer {
 
 		return attributes()//
 				.tableOfContents(true) //
-
 				.attribute("isbn", isbn) //
 				// .attribute("title", bookName) //
 				// .attribute("subject", bookName) //

@@ -35,10 +35,10 @@ cd $START_DIR
 export KINDLEGEN=${HOME}/bin/kindlegen/kindlegen
 export PUBLICATION_ROOT=${BOOK_CHECKOUT}/src/docs/asciidoc
 export PUBLICATION_TARGET=${START_DIR}/target/book-output
-export PUBLICATION_BOOKNAME="Reactive Spring"
 export PUBLICATION_CODE=${CODE_CHECKOUT}
-export PUBLICATION_PDF_FONTS=${PUBLICATION_ROOT}/styles/pdf/fonts/
-export PUBLICATION_PDF_STYLES=${PUBLICATION_ROOT}/styles/pdf/
+
+
+
 java -jar ${START_DIR}/target/production-0.0.1-SNAPSHOT.jar
 
 ## ADD RESULTING ARTIFACTS TO THE RIGHT ARTIFACT BRANCH

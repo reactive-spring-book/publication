@@ -17,7 +17,7 @@ public interface DocumentProducer {
 	}
 
 	default OptionsBuilder buildCommonOptions(String backend,
-			AttributesBuilder attributesBuilder) {
+																																											AttributesBuilder attributesBuilder) {
 		return this.buildCommonOptions(backend).attributes(attributesBuilder);
 	}
 
@@ -25,12 +25,25 @@ public interface DocumentProducer {
 		return new File(root, "index.adoc");
 	}
 
-	default AttributesBuilder buildCommonAttributes(String bookName, File source) {
-		return attributes().tableOfContents(true).title(bookName)
-				.attribute("subject", bookName).attribute("project-name", bookName)
-				.sectionNumbers(true).attribute("code", source.getAbsolutePath())
-				.tableOfContents(true).sectionNumbers(true).showTitle(true)
-				.imagesDir("images").sourceHighlighter("coderay");
+	default AttributesBuilder buildCommonAttributes(
+		String bookName,
+		String isbn,
+		File source) {
+
+		return attributes()//
+			.tableOfContents(true) //
+
+			.attribute("isbn", isbn) //
+//				.attribute("title", bookName) //
+//				.attribute("subject", bookName) //
+			.attribute("book-name", bookName) //
+			.sectionNumbers(true) //
+			.attribute("code", source.getAbsolutePath()) //
+			.tableOfContents(true) //
+			.sectionNumbers(true) //
+			// .showTitle(true) //
+			.imagesDir("images") //
+			.sourceHighlighter("coderay");
 	}
 
 	File[] produce(Asciidoctor asciidoctor) throws Exception;

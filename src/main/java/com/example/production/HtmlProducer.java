@@ -18,13 +18,13 @@ class HtmlProducer implements DocumentProducer {
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {
-		AttributesBuilder builder = this.buildCommonAttributes(
-				this.properties.getBookName(), this.properties.getCode());
-		OptionsBuilder html = this.buildCommonOptions("html", builder);
-		File index = getIndexAdoc(this.properties.getRoot());
+		var builder = this.buildCommonAttributes(this.properties.getBookName(),
+				"(No ISBN required)", this.properties.getCode());
+		var html = this.buildCommonOptions("html", builder);
+		var index = this.getIndexAdoc(this.properties.getRoot());
 		asciidoctor.convertFile(index, html);
-		File images = new File(index.getParentFile(), "images");
-		File indexHtml = new File(index.getParentFile(), "index.html");
+		var images = new File(index.getParentFile(), "images");
+		var indexHtml = new File(index.getParentFile(), "index.html");
 		return new File[] { indexHtml, images };
 	}
 

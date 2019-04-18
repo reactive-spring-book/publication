@@ -2,16 +2,12 @@ package com.example.production;
 
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
-import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 
 /**
@@ -29,21 +25,19 @@ class MobiProducer implements DocumentProducer {
 
 	MobiProducer(PublicationProperties properties) throws Exception {
 		this.properties = properties;
-
-		String os = System.getProperty("os.name").toLowerCase();
+		var os = System.getProperty("os.name").toLowerCase();
 		this.downloadKindlegen(os.contains("mac"),
 				(os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0));
 	}
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {
-		File indexAdoc = getIndexAdoc(this.properties.getRoot());
-		String bookName = this.properties.getBookName();
-		AttributesBuilder attributesBuilder = this
-				.buildCommonAttributes(bookName, this.properties.getCode())
+		var indexAdoc = getIndexAdoc(this.properties.getRoot());
+		var bookName = this.properties.getBookName();
+		var attributesBuilder = this.buildCommonAttributes(bookName,
+				this.properties.getMobi().getIsbn(), this.properties.getCode())
 				.attribute("ebook-format", "kf8");
-		OptionsBuilder optionsBuilder = this.buildCommonOptions("epub3",
-				attributesBuilder);
+		var optionsBuilder = this.buildCommonOptions("epub3", attributesBuilder);
 		try {
 			asciidoctor.convertFile(indexAdoc, optionsBuilder);
 		}
@@ -61,28 +55,26 @@ class MobiProducer implements DocumentProducer {
 
 	private void downloadKindlegen(boolean mac, boolean nix) throws Exception {
 
-		PublicationProperties.Epub.Mobi.Kindlegen kindlegen = properties.getEpub()
-				.getMobi().getKindlegen();
+		var kindlegen = properties.getMobi().getKindlegen();
+		var kindlegenLocation = kindlegen.getBinaryLocation();
 
-		File kindlegenLocation = kindlegen.getBinaryLocation();
 		Assert.isTrue(mac || nix, "This program was only tested on Mac and Linux.");
 
-		String toDownload = kindlegen.getUnixDownloadURI();
-		String ext = "tgz";
+		var toDownload = kindlegen.getUnixDownloadURI();
+		var ext = "tgz";
 		if (mac) {
 			toDownload = kindlegen.getOsxDownloadURI();
 			ext = "zip";
 		}
 
-		URL uri = new URL(toDownload);
-		File dir = kindlegenLocation.getParentFile();
-		File out = new File(dir, "dl." + ext);
+		var uri = new URL(toDownload);
+		var dir = kindlegenLocation.getParentFile();
+		var out = new File(dir, "dl." + ext);
 		if (!dir.exists() || !out.exists()) {
 			Assert.isTrue(dir.exists() || dir.mkdirs(),
 					"couldn't create the directory for the archive, "
 							+ dir.getAbsolutePath());
-			try (InputStream is = uri.openStream();
-					OutputStream os = new FileOutputStream(out)) {
+			try (var is = uri.openStream(); var os = new FileOutputStream(out)) {
 				FileCopyUtils.copy(is, os);
 			}
 			log.info("downloaded the file to " + out.getAbsolutePath() + " to "
@@ -95,18 +87,11 @@ class MobiProducer implements DocumentProducer {
 	}
 
 	private void unpack(File dl, File kindlegen) throws Exception {
-		String in = dl.getAbsolutePath();
-		String out = kindlegen.getParentFile().getAbsolutePath();
-		String cmd;
-		if (dl.getName().endsWith(".zip")) {
-			cmd = "unzip " + in + " -d " + out;
-		}
-		else {
-			cmd = "tar xvzf " + in + " -C " + out;
-		}
-
-		int returnValue = Runtime.getRuntime().exec(cmd).waitFor();
-
+		var in = dl.getAbsolutePath();
+		var out = kindlegen.getParentFile().getAbsolutePath();
+		var cmd = (dl.getName().endsWith(".zip")) ? "unzip " + in + " -d " + out
+				: "tar xvzf " + in + " -C " + out;
+		var returnValue = Runtime.getRuntime().exec(cmd).waitFor();
 		log.info("extracted " + in + " to " + kindlegen.getAbsolutePath()
 				+ " having return value " + returnValue);
 	}

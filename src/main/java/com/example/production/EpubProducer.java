@@ -19,7 +19,8 @@ class EpubProducer implements DocumentProducer {
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) {
 		AttributesBuilder attributesBuilder = this.buildCommonAttributes(
-				this.properties.getBookName(), this.properties.getCode());
+				this.properties.getBookName(), this.properties.getEpub().getIsbn(),
+				this.properties.getCode());
 		OptionsBuilder optionsBuilder = this.buildCommonOptions("epub3",
 				attributesBuilder);
 		File index = this.getIndexAdoc(this.properties.getRoot());

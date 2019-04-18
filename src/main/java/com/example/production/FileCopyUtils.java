@@ -11,11 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 @Log4j2
-public abstract class FileCopyUtils {
+abstract class FileCopyUtils {
 
-	public static void copy(InputStream in, OutputStream os) {
+	public static void copy(InputStream i, OutputStream o) {
 		try {
-			org.springframework.util.FileCopyUtils.copy(in, os);
+			org.springframework.util.FileCopyUtils.copy(i, o);
 		}
 		catch (IOException e) {
 			throw new RuntimeException(e);
@@ -27,13 +27,13 @@ public abstract class FileCopyUtils {
 		if (src.isDirectory()) {
 			Assert.isTrue(dst.exists() || dst.mkdirs(),
 					dst.getAbsolutePath() + " need to exist");
-			String[] files = src.list();
+			var files = src.list();
 			if (null == files) {
 				files = new String[0];
 			}
-			for (String file : files) {
-				File srcFile = new File(src, file);
-				File destFile = new File(dst, file);
+			for (var file : files) {
+				var srcFile = new File(src, file);
+				var destFile = new File(dst, file);
 				copy(srcFile, destFile);
 			}
 		}

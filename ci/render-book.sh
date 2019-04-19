@@ -9,6 +9,8 @@ BOOK_CHECKOUT=${OUT_ROOT}/docs
 CODE_CHECKOUT=${OUT_ROOT}/code
 RSB_URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git
 
+rm -rf $BOOK_CHECKOUT
+
 ## GET THE REPOSITORIES
 if [ ! -d "$BOOK_CHECKOUT" ]; then
     ## get the Asciidoc book
@@ -26,7 +28,6 @@ if [ ! -d "$CODE_CHECKOUT" ]; then
      echo "cloning ${l}"
      git clone ${l}
     done
-    cd $OUT_ROOT
 fi
 
 
@@ -40,6 +41,7 @@ export PUBLICATION_CODE=${CODE_CHECKOUT}
 
 
 java -jar ${START_DIR}/target/production-0.0.1-SNAPSHOT.jar
+exit
 
 ## ADD RESULTING ARTIFACTS TO THE RIGHT ARTIFACT BRANCH
 cd $BOOK_CHECKOUT
@@ -48,11 +50,8 @@ git remote set-url origin $RSB_URI
 git checkout $ARTIFACT_TAG
 
 OUTPUT=${BOOK_CHECKOUT}/output
-rm -rf $OUTPUT
 mkdir -p $OUTPUT
-git add $OUTPUT
 cp -r $PUBLICATION_TARGET/* $OUTPUT
-
 git add $OUTPUT
 git commit -am "adding built artifacts $(date)..."
 git push origin $ARTIFACT_TAG

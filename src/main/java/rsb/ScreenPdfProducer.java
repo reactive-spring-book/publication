@@ -1,4 +1,4 @@
-package com.example.production;
+package rsb;
 
 import org.springframework.stereotype.Component;
 

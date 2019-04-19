@@ -1,4 +1,4 @@
-package com.example.production;
+package rsb;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +14,7 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 
 	private final PublicationProperties properties;
 
-	abstract String getMedia();
+	protected abstract String getMedia();
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {

@@ -1,4 +1,4 @@
-package com.example.production;
+package rsb;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

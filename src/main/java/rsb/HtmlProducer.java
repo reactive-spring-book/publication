@@ -1,10 +1,8 @@
-package com.example.production;
+package rsb;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
-import org.asciidoctor.OptionsBuilder;
 import org.springframework.stereotype.Component;
 
 import java.io.File;

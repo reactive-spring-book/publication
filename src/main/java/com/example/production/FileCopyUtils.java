@@ -2,6 +2,7 @@ package com.example.production;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.util.Assert;
+import org.springframework.util.ReflectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,7 @@ abstract class FileCopyUtils {
 		}
 	}
 
-	public static void copy(File src, File dst) throws Exception {
+	public static void copy(File src, File dst) {
 		log.info("copying " + src.getAbsolutePath() + " to " + dst.getAbsolutePath());
 		if (src.isDirectory()) {
 			Assert.isTrue(dst.exists() || dst.mkdirs(),
@@ -38,7 +39,13 @@ abstract class FileCopyUtils {
 			}
 		}
 		else {
-			Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			try {
+				Files.copy(src.toPath(), dst.toPath(),
+						StandardCopyOption.REPLACE_EXISTING);
+			}
+			catch (IOException e) {
+				ReflectionUtils.rethrowRuntimeException(e);
+			}
 		}
 	}
 

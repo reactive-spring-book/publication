@@ -10,7 +10,7 @@ class PrepressPdfProducer extends AbstractPdfProducer {
 	}
 
 	@Override
-	String getMedia() {
+	protected String getMedia() {
 		return PublicationProperties.Pdf.PdfMedia.PREPRESS.name().toLowerCase();
 	}
 

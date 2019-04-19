@@ -10,7 +10,7 @@ class ScreenPdfProducer extends AbstractPdfProducer {
 	}
 
 	@Override
-	String getMedia() {
+	protected String getMedia() {
 		return PublicationProperties.Pdf.PdfMedia.SCREEN.name().toLowerCase();
 	}
 

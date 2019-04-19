@@ -1,4 +1,4 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.util.Assert;
@@ -27,7 +27,7 @@ abstract class FileCopyUtils {
 		log.info("copying " + src.getAbsolutePath() + " to " + dst.getAbsolutePath());
 		if (src.isDirectory()) {
 			Assert.isTrue(dst.exists() || dst.mkdirs(),
-					dst.getAbsolutePath() + " need to exist");
+					dst.getAbsolutePath() + " does not exist and couldn't be created");
 			var files = src.list();
 			if (null == files) {
 				files = new String[0];

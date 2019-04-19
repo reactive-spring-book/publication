@@ -1,4 +1,4 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;

@@ -1,4 +1,4 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
@@ -18,7 +18,6 @@ import java.net.URL;
  * it's there for macOS or Unix variants.
  */
 @Log4j2
-@Component
 class MobiProducer implements DocumentProducer {
 
 	private final PublicationProperties properties;

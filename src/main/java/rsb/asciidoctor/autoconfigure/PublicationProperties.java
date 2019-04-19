@@ -1,4 +1,4 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;

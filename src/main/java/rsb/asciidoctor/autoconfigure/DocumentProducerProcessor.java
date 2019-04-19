@@ -1,20 +1,18 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.io.File;
 import java.util.stream.Stream;
 
-import static rsb.FileCopyUtils.copy;
+import static rsb.asciidoctor.autoconfigure.FileCopyUtils.copy;
 
 @Log4j2
-@Component
 @RequiredArgsConstructor
 class DocumentProducerProcessor {
 
@@ -30,25 +28,32 @@ class DocumentProducerProcessor {
 				+ DocumentProducer.class.getName() + " instances");
 		for (var producer : this.producers) {
 			var name = producer.getClass().getName();
-			var filesArray = Stream.of(producer.produce(this.asciidoctor));
-			Assert.isTrue(filesArray.count() > 0,
+			log.info("Running " + name + ".");
+			var filesArray = producer.produce(this.asciidoctor);
+			var fileStream = Stream.of(filesArray);
+			Assert.isTrue(filesArray.length > 0,
 					"The " + name + " didn't produce any artifacts!");
-			filesArray.forEach(file -> Assert.isTrue(file.exists(), "the output file "
-					+ file.getAbsolutePath() + " does not exist, but should"));
-
-			this.collectOutputFiles(producer, filesArray);
+			this.collectOutputFiles(producer, fileStream);
 		}
 	}
 
 	private void collectOutputFiles(DocumentProducer producer, Stream<File> files) {
-		var name = producer.getClass().getSimpleName() //
-				.toLowerCase().replace("producer", "");
+		var name = producer.getClass().getSimpleName().toLowerCase().replace("producer",
+				"");
 		var target = new File(this.properties.getTarget(), name);
 		Assert.isTrue(target.exists() || target.mkdirs(), "the target directory "
 				+ target.getAbsolutePath() + " does not exist and couldn't be created");
 		files.forEach(
-				inputFile -> copy(inputFile, new File(target, inputFile.getName())));
+				inputFile -> doCopy(inputFile, new File(target, inputFile.getName())));
+	}
 
+	private void doCopy(File in, File out) {
+		Assert.isTrue(in.exists(),
+				"The input file " + in.getAbsolutePath() + "does not exist");
+		copy(in, out);
+		var outAbsolutePath = out.getAbsolutePath();
+		Assert.isTrue(out.exists(),
+				"The output file, " + outAbsolutePath + ", does not exist; copy failed.");
 	}
 
 }

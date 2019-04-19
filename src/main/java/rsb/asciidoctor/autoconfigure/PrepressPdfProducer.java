@@ -1,8 +1,5 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
-import org.springframework.stereotype.Component;
-
-@Component
 class PrepressPdfProducer extends AbstractPdfProducer {
 
 	PrepressPdfProducer(PublicationProperties properties) {

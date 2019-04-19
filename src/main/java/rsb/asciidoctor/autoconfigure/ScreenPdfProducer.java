@@ -1,8 +1,5 @@
-package rsb;
+package rsb.asciidoctor.autoconfigure;
 
-import org.springframework.stereotype.Component;
-
-@Component
 class ScreenPdfProducer extends AbstractPdfProducer {
 
 	ScreenPdfProducer(PublicationProperties properties) {

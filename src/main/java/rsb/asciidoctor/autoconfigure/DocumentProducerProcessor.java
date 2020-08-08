@@ -49,7 +49,7 @@ class DocumentProducerProcessor {
 
 	private void doCopy(File in, File out) {
 		Assert.isTrue(in.exists(),
-				"The input file " + in.getAbsolutePath() + "does not exist");
+				"The input file " + in.getAbsolutePath() + " does not exist");
 		copy(in, out);
 		var outAbsolutePath = out.getAbsolutePath();
 		Assert.isTrue(out.exists(),

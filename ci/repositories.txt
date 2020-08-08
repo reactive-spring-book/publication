@@ -8,3 +8,4 @@ https://github.com/reactive-spring-book/http.git
 https://github.com/reactive-spring-book/bootstrap.git
 https://github.com/reactive-spring-book/websockets.git
 https://github.com/reactive-spring-book/site.git
+https://github.com/reactive-spring-book/rsocket.git

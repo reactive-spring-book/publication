@@ -7,9 +7,7 @@
         <mirror>
             <mirrorOf>*</mirrorOf>
             <name>cloudnativejava-artifactory</name>
-            <url>
-                https://cloudnativejava.jfrog.io/cloudnativejava/libs-snapshot
-            </url>
+            <url>https://cloudnativejava.jfrog.io/cloudnativejava/libs-snapshot</url>
             <id>cloudnativejava-artifactory</id>
         </mirror>
     </mirrors>

@@ -117,7 +117,7 @@
                             </deployProperties>
                             <publisher>
                                 <contextUrl>
-                                    https://cloudnativejava.jfrog.io/cloudnativejava/cloudnativejava
+                                    https://cloudnativejava.jfrog.io/cloudnativejava
                                 </contextUrl>
                                 <username>${env.ARTIFACTORY_USERNAME}</username>
                                 <password>${env.ARTIFACTORY_PASSWORD}</password>
@@ -140,7 +140,7 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>   
     <repositories>
         <repository>
             <snapshots>
@@ -177,9 +177,10 @@
             <id>snapshots</id>
             <name>plugins-snapshot</name>
             <url>
-                https://cloudnativejava.jfrog.io/cloudnativejava//plugins-snapshot
+                https://cloudnativejava.jfrog.io/cloudnativejava/plugins-snapshot
             </url>
         </pluginRepository>
     </pluginRepositories>
+
 
 </project>

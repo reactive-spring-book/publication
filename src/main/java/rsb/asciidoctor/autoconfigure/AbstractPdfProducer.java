@@ -19,10 +19,10 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {
-		String bookName = this.properties.getBookName();
-		File indexAdoc = getIndexAdoc(this.properties.getCode());
-		PublicationProperties.Pdf pdf = this.properties.getPdf();
-		AttributesBuilder attributesBuilder = this
+		var bookName = this.properties.getBookName();
+		var indexAdoc = getIndexAdoc(this.properties.getCode());
+		var pdf = this.properties.getPdf();
+		var attributesBuilder = this
 				.buildCommonAttributes(bookName, pdf.getIsbn(), indexAdoc)
 				.title(this.properties.getBookName()).attribute("idseparator", "-") //
 				.imagesDir("images") //
@@ -34,34 +34,38 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 				.attribute("project-version", "2.0.0-SNAPSHOT") //
 				.attribute("subject", bookName) //
 				.attribute("project-name", bookName) //
-				.attribute("pdfmarks");
-		// .attribute("pdf-fontsdir", pdf.getFonts().getAbsolutePath()) //
+				.attribute("pdfmarks")
+				.attribute("pdf-stylesdir", pdf.getStyles().getAbsolutePath()) //
+				.attribute("pdf-fontsdir", pdf.getFonts().getAbsolutePath());
 
-		var fonts = pdf.getFonts();
-		if (null != fonts && fonts.exists()) {
-			var root = fonts.getAbsolutePath();
-			attributesBuilder = attributesBuilder.attribute("pdf-fontsdir", root);
-		}
+		if (false) {
 
-		var styles = pdf.getStyles();
-		if (null != styles && styles.exists()) {
-			var directoryForThemes = styles.getParentFile();
-			var themeFileName = styles.getName();
-			var file = new File(directoryForThemes, themeFileName);
-			Assert.isTrue(file.exists(),
-					"the two must equal a valid style for the PDF theme");
-			Assert.isTrue(file.getName().toLowerCase().endsWith(".yml"),
-					"the file must end with .yml");
-			var themesDirectoryPath = directoryForThemes.getAbsolutePath();
-			for (var k : "pdf-stylesdir,pdf-themesdir".split(",")) {
-				attributesBuilder = attributesBuilder.attribute(k, themesDirectoryPath);
+			var fonts = pdf.getFonts();
+			if (null != fonts && fonts.exists()) {
+				var root = fonts.getAbsolutePath();
+				attributesBuilder = attributesBuilder.attribute("pdf-fontsdir", root);
 			}
-			for (var k : "pdf-style,pdf-theme".split(",")) {
-				attributesBuilder = attributesBuilder.attribute(k, themeFileName);
-			}
-			attributesBuilder = attributesBuilder.stylesDir(themesDirectoryPath)
-					.styleSheetName(themeFileName);
 
+			var styles = pdf.getStyles();
+			if (null != styles && styles.exists()) {
+				var directoryForThemes = styles.getParentFile();
+				var themeFileName = styles.getName();
+				var file = new File(directoryForThemes, themeFileName);
+				Assert.isTrue(file.exists(),
+						"the two must equal a valid style for the PDF theme");
+				Assert.isTrue(file.getName().toLowerCase().endsWith(".yml"),
+						"the file must end with .yml");
+				var themesDirectoryPath = directoryForThemes.getAbsolutePath();
+				for (var k : "pdf-stylesdir,pdf-themesdir".split(",")) {
+					attributesBuilder = attributesBuilder.attribute(k,
+							themesDirectoryPath);
+				}
+				for (var k : "pdf-style,pdf-theme".split(",")) {
+					attributesBuilder = attributesBuilder.attribute(k, themeFileName);
+				}
+				attributesBuilder = attributesBuilder.stylesDir(themesDirectoryPath)
+						.styleSheetName(themeFileName);
+			}
 		}
 
 		OptionsBuilder optionsBuilder = this.buildCommonOptions("pdf", attributesBuilder)

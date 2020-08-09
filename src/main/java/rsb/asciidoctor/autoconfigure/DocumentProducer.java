@@ -30,17 +30,17 @@ public interface DocumentProducer {
 
 		return attributes()//
 				.tableOfContents(true) //
+
 				.attribute("isbn", isbn) //
-				// .attribute("title", bookName) //
-				// .attribute("subject", bookName) //
 				.attribute("book-name", bookName) //
 				.sectionNumbers(true) //
 				.attribute("code", source.getAbsolutePath()) //
 				.tableOfContents(true) //
 				.sectionNumbers(true) //
-				// .showTitle(true) //
 				.imagesDir("images") //
-				.sourceHighlighter("coderay");
+				.sourceHighlighter("coderay")
+				.showTitle(false);//
+				// .showTitle(true) //;
 	}
 
 	File[] produce(Asciidoctor asciidoctor) throws Exception;

@@ -23,10 +23,9 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 		var pdf = this.properties.getPdf();
 		var attributesBuilder = this
 				.buildCommonAttributes(bookName, pdf.getIsbn(), indexAdoc)
-				.title(this.properties.getBookName()).attribute("idseparator", "-") //
+				.attribute("idseparator", "-") //
 				.imagesDir("images") //
 				.attribute("media", getMedia()) //
-				.attribute("doctitle", bookName) //
 				.attribute("code", this.properties.getCode().getAbsolutePath()) //
 				.attribute("icons", "font") //
 				.attribute("pdf-style", getMedia()) //

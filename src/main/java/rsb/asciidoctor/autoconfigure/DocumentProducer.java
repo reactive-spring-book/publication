@@ -29,6 +29,8 @@ public interface DocumentProducer {
 			File source) {
 
 		return attributes()//
+				.title(bookName)//
+				.attribute("doctitle", bookName) //
 				.tableOfContents(true) //
 				.attribute("isbn", isbn) //
 				.attribute("book-name", bookName) //
@@ -38,7 +40,7 @@ public interface DocumentProducer {
 				.sectionNumbers(true) //
 				.imagesDir("images") //
 				.sourceHighlighter("coderay") //
-				.showTitle(true);
+				.showTitle(false);
 	}
 
 	File[] produce(Asciidoctor asciidoctor) throws Exception;

@@ -37,8 +37,8 @@ public interface DocumentProducer {
 				.tableOfContents(true) //
 				.sectionNumbers(true) //
 				.imagesDir("images") //
-				.sourceHighlighter("coderay").showTitle(false);//
-		// .showTitle(true) //;
+				.sourceHighlighter("coderay") //
+				.showTitle(true);
 	}
 
 	File[] produce(Asciidoctor asciidoctor) throws Exception;

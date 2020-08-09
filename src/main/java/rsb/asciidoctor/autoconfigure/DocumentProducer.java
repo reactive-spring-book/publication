@@ -30,7 +30,6 @@ public interface DocumentProducer {
 
 		return attributes()//
 				.tableOfContents(true) //
-
 				.attribute("isbn", isbn) //
 				.attribute("book-name", bookName) //
 				.sectionNumbers(true) //
@@ -38,9 +37,8 @@ public interface DocumentProducer {
 				.tableOfContents(true) //
 				.sectionNumbers(true) //
 				.imagesDir("images") //
-				.sourceHighlighter("coderay")
-				.showTitle(false);//
-				// .showTitle(true) //;
+				.sourceHighlighter("coderay").showTitle(false);//
+		// .showTitle(true) //;
 	}
 
 	File[] produce(Asciidoctor asciidoctor) throws Exception;

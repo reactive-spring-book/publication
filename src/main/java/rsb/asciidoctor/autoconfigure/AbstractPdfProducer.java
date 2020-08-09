@@ -3,7 +3,6 @@ package rsb.asciidoctor.autoconfigure;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.springframework.util.Assert;
 
@@ -27,6 +26,7 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 				.title(this.properties.getBookName()).attribute("idseparator", "-") //
 				.imagesDir("images") //
 				.attribute("media", getMedia()) //
+				.attribute("doctitle", bookName) //
 				.attribute("code", this.properties.getCode().getAbsolutePath()) //
 				.attribute("icons", "font") //
 				.attribute("pdf-style", getMedia()) //

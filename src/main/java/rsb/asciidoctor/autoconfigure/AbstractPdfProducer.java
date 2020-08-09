@@ -33,7 +33,8 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 				.attribute("project-version", "2.0.0-SNAPSHOT") //
 				.attribute("subject", bookName) //
 				.attribute("project-name", bookName) //
-				.attribute("pdfmarks")
+				.attribute("pdfmarks")//
+				.attribute("notitle")//
 				.attribute("pdf-stylesdir", pdf.getStyles().getAbsolutePath()) //
 				.attribute("pdf-fontsdir", pdf.getFonts().getAbsolutePath());
 

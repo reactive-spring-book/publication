@@ -37,34 +37,35 @@ abstract class AbstractPdfProducer implements DocumentProducer {
 				.attribute("pdfmarks");
 		// .attribute("pdf-fontsdir", pdf.getFonts().getAbsolutePath()) //
 
-		/*
-		 * var fonts = pdf.getFonts(); if (null != fonts && fonts.exists()) { var root =
-		 * fonts.getAbsolutePath(); attributesBuilder =
-		 * attributesBuilder.attribute("pdf-fontsdir", root); }
-		 *
-		 * var styles = pdf.getStyles(); if (null != styles && styles.exists()) { var
-		 * directoryForThemes = styles.getParentFile(); var themeFileName =
-		 * styles.getName(); var file = new File(directoryForThemes, themeFileName);
-		 * Assert.isTrue(file.exists(),
-		 * "the two must equal a valid style for the PDF theme");
-		 * Assert.isTrue(file.getName().toLowerCase().endsWith(".yml"),
-		 * "the file must end with .yml");
-		 *
-		 * // i dont know which of these actually works... var themesDirectoryPath =
-		 * directoryForThemes.getAbsolutePath(); for (var k :
-		 * "pdf-stylesdir,pdf-themesdir".split(",")) { attributesBuilder =
-		 * attributesBuilder.attribute(k, themesDirectoryPath); } for (var k :
-		 * "pdf-style,pdf-theme".split(",")) { attributesBuilder =
-		 * attributesBuilder.attribute(k, themeFileName); } attributesBuilder =
-		 * attributesBuilder.stylesDir(themesDirectoryPath)
-		 * .styleSheetName(themeFileName); // i dont know which of these actually works...
-		 *
-		 * }
-		 */
+		var fonts = pdf.getFonts();
+		if (null != fonts && fonts.exists()) {
+			var root = fonts.getAbsolutePath();
+			attributesBuilder = attributesBuilder.attribute("pdf-fontsdir", root);
+		}
+
+		var styles = pdf.getStyles();
+		if (null != styles && styles.exists()) {
+			var directoryForThemes = styles.getParentFile();
+			var themeFileName = styles.getName();
+			var file = new File(directoryForThemes, themeFileName);
+			Assert.isTrue(file.exists(),
+					"the two must equal a valid style for the PDF theme");
+			Assert.isTrue(file.getName().toLowerCase().endsWith(".yml"),
+					"the file must end with .yml");
+			var themesDirectoryPath = directoryForThemes.getAbsolutePath();
+			for (var k : "pdf-stylesdir,pdf-themesdir".split(",")) {
+				attributesBuilder = attributesBuilder.attribute(k, themesDirectoryPath);
+			}
+			for (var k : "pdf-style,pdf-theme".split(",")) {
+				attributesBuilder = attributesBuilder.attribute(k, themeFileName);
+			}
+			attributesBuilder = attributesBuilder.stylesDir(themesDirectoryPath)
+					.styleSheetName(themeFileName);
+
+		}
 
 		OptionsBuilder optionsBuilder = this.buildCommonOptions("pdf", attributesBuilder)
 				.docType("book");
-
 		asciidoctor.convertFile(this.getIndexAdoc(this.properties.getRoot()),
 				optionsBuilder);
 

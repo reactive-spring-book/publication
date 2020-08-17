@@ -1,3 +1,4 @@
+https://github.com/reactive-spring-book/orchestration.git
 https://github.com/reactive-spring-book/publication.git
 https://github.com/reactive-spring-book/io.git
 https://github.com/reactive-spring-book/testing.git
@@ -7,5 +8,4 @@ https://github.com/reactive-spring-book/reactor.git
 https://github.com/reactive-spring-book/http.git
 https://github.com/reactive-spring-book/rsocket.git
 https://github.com/reactive-spring-book/bootstrap.git
-https://github.com/reactive-spring-book/websockets.git
 https://github.com/reactive-spring-book/site.git

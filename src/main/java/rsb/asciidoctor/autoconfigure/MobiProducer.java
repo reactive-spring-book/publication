@@ -28,8 +28,7 @@ class MobiProducer implements DocumentProducer {
 
 	private final Resource kindlegenZipArchive;
 
-	MobiProducer(PublicationProperties properties,
-			@Value("classpath:/kindlegen.zip") Resource kindlegenZipArchive)
+	MobiProducer(PublicationProperties properties, Resource kindlegenZipArchive)
 			throws Exception {
 		this.properties = properties;
 		this.kindlegenZipArchive = kindlegenZipArchive;

@@ -6,6 +6,7 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -130,11 +131,18 @@ class MobiProducer implements DocumentProducer {
 	private void unpack(File dl, File kindlegen) throws Exception {
 		log.info("need to unpack " + dl.getAbsolutePath() + " to "
 				+ kindlegen.getAbsolutePath() + ".");
+
+		var parentFile = kindlegen.getParentFile();
+		// if (parentFile.exists()) {
+		// parentFile.delete();
+		//
+		// }
+
+		parentFile.mkdirs();
+
 		var in = dl.getAbsolutePath();
-		var out = kindlegen.getParentFile().getAbsolutePath();
-		if (kindlegen.getParentFile().exists()) {
-			kindlegen.getParentFile().delete();
-		}
+		var out = parentFile.getAbsolutePath();
+
 		var cmd = (dl.getName().endsWith(".zip")) ? "unzip " + in + " -d " + out
 				: "tar xvzf " + in + " -C " + out;
 		log.info("the unpack command is '" + cmd + "'.");

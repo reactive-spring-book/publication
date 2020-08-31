@@ -17,30 +17,24 @@ import org.springframework.core.io.Resource;
 class AsciidoctorPublicationAutoConfiguration {
 
 	@Bean
-	EpubProducer epubProducer(PublicationProperties pp) {
-		return new EpubProducer(pp);
-	}
-
-	@Bean
-	HtmlProducer htmlProducer(PublicationProperties pp) {
-		return new HtmlProducer(pp);
-	}
-
-	@Bean
 	MobiProducer mobiProducer(PublicationProperties pp,
 			@Value("classpath:/kindlegen.zip") Resource kindlegen) throws Exception {
 		return new MobiProducer(pp, kindlegen);
 	}
 
-	@Bean
-	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
-		return new ScreenPdfProducer(pp);
-	}
-
-	@Bean
-	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
-		return new PrepressPdfProducer(pp);
-	}
+	/*
+	 * @Bean EpubProducer epubProducer(PublicationProperties pp) { return new
+	 * EpubProducer(pp); }
+	 *
+	 * @Bean HtmlProducer htmlProducer(PublicationProperties pp) { return new
+	 * HtmlProducer(pp); }
+	 *
+	 * @Bean ScreenPdfProducer screenPdfProducer(PublicationProperties pp) { return new
+	 * ScreenPdfProducer(pp); }
+	 *
+	 * @Bean PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) { return
+	 * new PrepressPdfProducer(pp); }
+	 */
 
 	@Bean
 	DocumentProducerProcessor documentProducerProcessor(Asciidoctor ad,

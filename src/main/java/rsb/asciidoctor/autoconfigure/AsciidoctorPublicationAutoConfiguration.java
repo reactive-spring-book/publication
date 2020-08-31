@@ -17,6 +17,8 @@ import org.springframework.core.io.Resource;
 class AsciidoctorPublicationAutoConfiguration {
 
 	/*
+	 * TODO fix this! it's not able to find the kindlegen binary! WHYYYY.
+	 *
 	 * @Bean MobiProducer mobiProducer(PublicationProperties pp,
 	 *
 	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new

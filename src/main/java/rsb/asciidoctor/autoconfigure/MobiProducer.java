@@ -36,6 +36,9 @@ class MobiProducer implements DocumentProducer {
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {
+		log.info("KINDLEGEN: " + System.getenv("KINDLEGEN"));
+		var file = new File(System.getenv("KINDLEGEN"));
+		Assert.state(file.exists(), "the KINDLEGEN env var is not set correctly!");
 		var indexAdoc = getIndexAdoc(this.properties.getRoot());
 		var bookName = this.properties.getBookName();
 		var attributesBuilder = this.buildCommonAttributes(bookName,

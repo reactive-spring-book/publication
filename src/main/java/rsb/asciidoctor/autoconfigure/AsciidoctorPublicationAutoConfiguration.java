@@ -17,14 +17,14 @@ import org.springframework.core.io.Resource;
 class AsciidoctorPublicationAutoConfiguration {
 
 	@Bean
-	MobiProducer mobiProducer(PublicationProperties pp,
-			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
-		return new MobiProducer(pp, kindlegen);
+	EpubProducer epubProducer(PublicationProperties pp) {
+		return new EpubProducer(pp);
 	}
 
 	@Bean
-	EpubProducer epubProducer(PublicationProperties pp) {
-		return new EpubProducer(pp);
+	MobiProducer mobiProducer(PublicationProperties pp,
+			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
+		return new MobiProducer(pp, kindlegen);
 	}
 
 	@Bean

@@ -79,7 +79,8 @@ class MobiProducer implements DocumentProducer {
 					var os = new FileOutputStream(out)) {
 				FileCopyUtils.copy(is, os);
 			}
-			log.info("downloaded the file to " + out.getAbsolutePath());
+			log.info("downloaded the file to " + out.getAbsolutePath() + ". Its size is "
+					+ out.getFreeSpace() + '.');
 			this.unpack(out, kindlegenLocation);
 			Assert.state(kindlegenLocation.exists(),
 					() -> "the kindlegen binary should live here "

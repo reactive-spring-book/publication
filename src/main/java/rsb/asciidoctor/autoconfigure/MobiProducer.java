@@ -32,14 +32,8 @@ class MobiProducer implements DocumentProducer {
 		this.properties = properties;
 		this.kindlegenZipArchive = kindlegenZipArchive;
 		var os = System.getProperty("os.name").toLowerCase();
-		/*
-		 * this.downloadKindlegen(os.contains("mac"), (os.contains("nix") ||
-		 * os.contains("nux") || os.indexOf("aix") > 0) );
-		 */
-
 		this.installKindlegen(
 				(os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0));
-
 	}
 
 	@Override
@@ -131,10 +125,13 @@ class MobiProducer implements DocumentProducer {
 	}
 
 	private void unpack(File dl, File kindlegen) throws Exception {
+		log.info("need to unpack " + dl.getAbsolutePath() + " to "
+				+ kindlegen.getAbsolutePath() + ".");
 		var in = dl.getAbsolutePath();
 		var out = kindlegen.getParentFile().getAbsolutePath();
 		var cmd = (dl.getName().endsWith(".zip")) ? "unzip " + in + " -d " + out
 				: "tar xvzf " + in + " -C " + out;
+		log.info("the unpack command is " + cmd + ".");
 		var returnValue = Runtime.getRuntime().exec(cmd).waitFor();
 		log.info("extracted " + in + " to " + kindlegen.getAbsolutePath()
 				+ " having return value " + returnValue);

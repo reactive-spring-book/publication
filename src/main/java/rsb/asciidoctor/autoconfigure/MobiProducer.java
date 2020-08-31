@@ -3,7 +3,6 @@ package rsb.asciidoctor.autoconfigure;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
@@ -74,22 +73,19 @@ class MobiProducer implements DocumentProducer {
 			var ext = "zip";
 			var dir = kindlegenLocation.getParentFile();
 			var out = new File(dir, "dl." + ext);
-			// if the directory doesn't exist, lets make it exist and install the archive
-			if (!dir.exists() || !out.exists()) {
-				Assert.isTrue(dir.exists() || dir.mkdirs(),
-						"couldn't create the directory for the archive, "
-								+ dir.getAbsolutePath());
-				try (var is = this.kindlegenZipArchive.getInputStream();
-						var os = new FileOutputStream(out)) {
-					FileCopyUtils.copy(is, os);
-				}
-				log.info("downloaded the file to " + out.getAbsolutePath() + " to "
-						+ kindlegenLocation.getAbsolutePath());
+			Assert.state(!dir.exists() || dir.delete(),
+					"the directory " + dir.getAbsolutePath() + " should not exist!");
+			Assert.isTrue(dir.mkdirs(), "couldn't create the directory for the archive, "
+					+ dir.getAbsolutePath());
+			try (var is = this.kindlegenZipArchive.getInputStream();
+					var os = new FileOutputStream(out)) {
+				FileCopyUtils.copy(is, os);
 			}
-
-			if (!kindlegenLocation.exists()) {
-				this.unpack(out, kindlegenLocation);
-			}
+			log.info("downloaded the file to " + out.getAbsolutePath());
+			this.unpack(out, kindlegenLocation);
+			Assert.state(kindlegenLocation.exists(),
+					() -> "the kindlegen binary should live here "
+							+ kindlegenLocation.getAbsolutePath() + '.');
 		}
 		else {
 			log.info("this won't work on the Mac or Windows. Try Linux.");

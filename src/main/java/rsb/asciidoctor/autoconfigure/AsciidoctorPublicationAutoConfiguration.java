@@ -16,14 +16,13 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
-	/*
-	 * TODO fix this! it's not able to find the kindlegen binary! WHYYYY.
-	 *
-	 * @Bean MobiProducer mobiProducer(PublicationProperties pp,
-	 *
-	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new
-	 * MobiProducer(pp, kindlegen); }
-	 */
+	// TODO fix this! it's not able to find the kindlegen binary! WHYYYY.
+
+	@Bean
+	MobiProducer mobiProducer(PublicationProperties pp,
+			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
+		return new MobiProducer(pp, kindlegen);
+	}
 
 	@Bean
 	EpubProducer epubProducer(PublicationProperties pp) {

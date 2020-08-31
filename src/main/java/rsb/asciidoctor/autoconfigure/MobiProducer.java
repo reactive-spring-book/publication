@@ -16,6 +16,9 @@ import java.net.URL;
  * The environment variable should point to the location of `kindlegen` itself. You
  * specify that and this code will download the requisite binary from Amazon and make sure
  * it's there for macOS or Unix variants.
+ *
+ * TODO as of 31/08/2020, the Kindlegen utility no longer seems to be available for
+ * download in the usual places.
  */
 @Log4j2
 class MobiProducer implements DocumentProducer {

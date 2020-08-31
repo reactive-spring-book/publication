@@ -3,10 +3,12 @@ package rsb.asciidoctor.autoconfigure;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 
 @Log4j2
 @Configuration
@@ -14,27 +16,30 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
+	// TODO fix this! it's not able to find the kindlegen binary! WHYYYY.
+
 	@Bean
+	MobiProducer mobiProducer(PublicationProperties pp,
+			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
+		return new MobiProducer(pp, kindlegen);
+	}
+
+	// @Bean
 	EpubProducer epubProducer(PublicationProperties pp) {
 		return new EpubProducer(pp);
 	}
 
-	@Bean
+	// @Bean
 	HtmlProducer htmlProducer(PublicationProperties pp) {
 		return new HtmlProducer(pp);
 	}
 
-	@Bean
-	MobiProducer mobiProducer(PublicationProperties pp) throws Exception {
-		return new MobiProducer(pp);
-	}
-
-	@Bean
+	// @Bean
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
 		return new ScreenPdfProducer(pp);
 	}
 
-	@Bean
+	// @Bean
 	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
 		return new PrepressPdfProducer(pp);
 	}

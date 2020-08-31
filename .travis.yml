@@ -5,7 +5,11 @@ before_install:
 
 jdk:
   - oraclejdk11
-  
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install calibre
+
 cache:
   directories:
   - $HOME/.m2/repository/

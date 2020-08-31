@@ -26,15 +26,21 @@ class DocumentProducerProcessor {
 	public void produceDocuments() throws Exception {
 		log.info("there are " + this.producers.length + " "
 				+ DocumentProducer.class.getName() + " instances");
-		for (var producer : this.producers) {
-			var name = producer.getClass().getName();
-			log.info("Running " + name + ".");
-			var filesArray = producer.produce(this.asciidoctor);
-			var fileStream = Stream.of(filesArray);
-			Assert.isTrue(filesArray.length > 0,
-					"The " + name + " didn't produce any artifacts!");
-			this.collectOutputFiles(producer, fileStream);
-		}
+		Stream.of(this.producers).forEach(producer -> {
+			try {
+				var name = producer.getClass().getName();
+				log.info("Running " + name + ".");
+				var filesArray = producer.produce(this.asciidoctor);
+				var fileStream = Stream.of(filesArray);
+				Assert.isTrue(filesArray.length > 0,
+						"The " + name + " didn't produce any artifacts!");
+				this.collectOutputFiles(producer, fileStream);
+			}
+			catch (Exception e) {
+				log.error("had trouble running " + producer.getClass().getName()
+						+ " and received the following exception: ", e);
+			}
+		});
 	}
 
 	private void collectOutputFiles(DocumentProducer producer, Stream<File> files) {

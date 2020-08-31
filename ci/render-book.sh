@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 START_DIR=$(pwd)
 echo "starting in ${START_DIR}."
@@ -35,13 +35,11 @@ cd $START_DIR
 export KINDLEGEN=${HOME}/bin/kindlegen/kindlegen
 
 KINDLEGEN_DIRNAME=$(dirname $KINDLEGEN)
+
 echo "going to reset $KINDLEGEN_DIRNAME"
 rm -rf $KINDLEGEN_DIRNAME
 mkdir -p $KINDLEGEN_DIRNAME
 export PATH=$KINDLEGEN_DIRNAME:$PATH
-
-
-kindlegen
 
 export PUBLICATION_ROOT=${BOOK_CHECKOUT}/src/docs/asciidoc
 export PUBLICATION_TARGET=${START_DIR}/target/book-output
@@ -49,6 +47,7 @@ export PUBLICATION_CODE=${CODE_CHECKOUT}
 
 java -jar ${START_DIR}/target/production-0.0.1-SNAPSHOT.jar
 
+kindlegen
 tree $PUBLICATION_TARGET
 ls -la $PUBLICATION_TARGET
 

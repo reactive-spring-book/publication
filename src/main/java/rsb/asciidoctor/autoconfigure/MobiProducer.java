@@ -1,24 +1,20 @@
 package rsb.asciidoctor.autoconfigure;
 
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
-import java.io.*;
-import java.net.URL;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This is _super_ fragile. In order for this to work you need to provide an environment
- * variable - ${code KINDLEGEN} - where the ${code kindlegen} binary can be downloaded.
- * The environment variable should point to the location of `kindlegen` itself. You
- * specify that and this code will download the requisite binary from Amazon and make sure
- * it's there for macOS or Unix variants.
- * <p>
- * TODO as of 31/08/2020, the Kindlegen utility no longer seems to be available for
- * download in the usual places.
+ * variable - ${code KINDLEGEN} - where the ${code kindlegen} binary can be found. The
+ * environment variable should point to the location of the `kindlegen` binary itself.
  */
 @Log4j2
 class MobiProducer implements DocumentProducer {
@@ -36,9 +32,7 @@ class MobiProducer implements DocumentProducer {
 
 	@Override
 	public File[] produce(Asciidoctor asciidoctor) throws Exception {
-		log.info("KINDLEGEN: " + System.getenv("KINDLEGEN"));
-		var file = new File(System.getenv("KINDLEGEN"));
-		Assert.state(file.exists(), "the KINDLEGEN env var is not set correctly!");
+
 		var indexAdoc = getIndexAdoc(this.properties.getRoot());
 		var bookName = this.properties.getBookName();
 		var attributesBuilder = this.buildCommonAttributes(bookName,
@@ -76,82 +70,6 @@ class MobiProducer implements DocumentProducer {
 				0 == Runtime.getRuntime()
 						.exec("chmod a+x " + binaryLocation.getAbsolutePath()).waitFor(),
 				"couldn't make the kindlegen binary executable");
-		// kindlegen.getBinaryLocation()
-	}
-
-	/*
-	 * the archive for Kindlegen is no longer accessible from Amazon. Thanks Ammazon! So,
-	 * for now, we bundle our own until we can figure out what the upgrade path is.
-	 */
-	@Deprecated
-	private void downloadKindlegen(boolean mac, boolean nix) throws Exception {
-
-		var kindlegen = properties.getMobi().getKindlegen();
-		var kindlegenLocation = kindlegen.getBinaryLocation();
-
-		Assert.isTrue(mac || nix, "This program was only tested on Mac and Linux.");
-
-		var toDownload = kindlegen.getUnixDownloadURI();
-		var ext = "tgz";
-		if (mac) {
-			toDownload = kindlegen.getOsxDownloadURI();
-			ext = "zip";
-		}
-
-		var uri = new URL(toDownload);
-		var dir = kindlegenLocation.getParentFile();
-		var out = new File(dir, "dl." + ext);
-		if (!dir.exists() || !out.exists()) {
-			Assert.isTrue(dir.exists() || dir.mkdirs(),
-					"couldn't create the directory for the archive, "
-							+ dir.getAbsolutePath());
-			try (var is = uri.openStream(); var os = new FileOutputStream(out)) {
-				FileCopyUtils.copy(is, os);
-			}
-			log.info("downloaded the file to " + out.getAbsolutePath() + " to "
-					+ kindlegenLocation.getAbsolutePath());
-		}
-
-		if (!kindlegenLocation.exists()) {
-			this.unpack(out, kindlegenLocation);
-		}
-	}
-
-	@Deprecated
-	private void unpack(File dl, File kindlegen) throws Exception {
-		log.info("need to unpack " + dl.getAbsolutePath() + " to "
-				+ kindlegen.getAbsolutePath() + ".");
-
-		var parentFile = kindlegen.getParentFile();
-
-		parentFile.mkdirs();
-
-		var in = dl.getAbsolutePath();
-		var out = parentFile.getAbsolutePath();
-
-		var cmd = (dl.getName().endsWith(".zip")) ? "unzip " + in + " -d " + out
-				: "tar xvzf " + in + " -C " + out;
-		log.info("the unpack command is '" + cmd + "'.");
-		var process = Runtime.getRuntime().exec(cmd);
-		var stdout = readString(process.getInputStream());
-		var stderr = readString(process.getErrorStream());
-
-		if (!stderr.trim().equals("")) {
-			log.error(stderr);
-		}
-
-		log.info(stdout);
-
-		var returnValue = process.waitFor();
-		log.info("extracted " + in + " to " + kindlegen.getAbsolutePath()
-				+ " having return value " + returnValue);
-	}
-
-	@SneakyThrows
-	private static String readString(InputStream in) {
-		try (var fir = new InputStreamReader(in)) {
-			return org.springframework.util.FileCopyUtils.copyToString(fir);
-		}
 	}
 
 }

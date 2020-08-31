@@ -1,5 +1,6 @@
 package rsb.asciidoctor.autoconfigure;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
@@ -8,6 +9,8 @@ import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 /**
@@ -129,12 +132,32 @@ class MobiProducer implements DocumentProducer {
 				+ kindlegen.getAbsolutePath() + ".");
 		var in = dl.getAbsolutePath();
 		var out = kindlegen.getParentFile().getAbsolutePath();
+		if (kindlegen.getParentFile().exists()) {
+			kindlegen.getParentFile().delete();
+		}
 		var cmd = (dl.getName().endsWith(".zip")) ? "unzip " + in + " -d " + out
 				: "tar xvzf " + in + " -C " + out;
-		log.info("the unpack command is " + cmd + ".");
-		var returnValue = Runtime.getRuntime().exec(cmd).waitFor();
+		log.info("the unpack command is '" + cmd + "'.");
+		var process = Runtime.getRuntime().exec(cmd);
+		var stdout = readString(process.getInputStream());
+		var stderr = readString(process.getErrorStream());
+
+		if (!stderr.trim().equals("")) {
+			log.error(stderr);
+		}
+
+		log.info(stdout);
+
+		var returnValue = process.waitFor();
 		log.info("extracted " + in + " to " + kindlegen.getAbsolutePath()
 				+ " having return value " + returnValue);
+	}
+
+	@SneakyThrows
+	private static String readString(InputStream in) {
+		try (var fir = new InputStreamReader(in)) {
+			return org.springframework.util.FileCopyUtils.copyToString(fir);
+		}
 	}
 
 }

@@ -37,7 +37,7 @@ export KINDLEGEN=${HOME}/bin/kindlegen/kindlegen
 export PUBLICATION_ROOT=${BOOK_CHECKOUT}/src/docs/asciidoc
 export PUBLICATION_TARGET=${START_DIR}/target/book-output
 export PUBLICATION_CODE=${CODE_CHECKOUT}
-
+mkdir -p $(dirname $KINDLEGEN)
 java -jar ${START_DIR}/target/production-0.0.1-SNAPSHOT.jar
 
 ## ADD RESULTING ARTIFACTS TO THE RIGHT ARTIFACT BRANCH

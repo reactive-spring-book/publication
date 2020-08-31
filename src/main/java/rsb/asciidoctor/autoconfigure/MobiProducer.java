@@ -6,12 +6,8 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 
 /**
@@ -29,15 +25,13 @@ class MobiProducer implements DocumentProducer {
 
 	private final PublicationProperties properties;
 
-	private final Resource kindlegenZipArchive;
+	private final Resource kindlegenBinary;
 
-	MobiProducer(PublicationProperties properties, Resource kindlegenZipArchive)
+	MobiProducer(PublicationProperties properties, Resource kindlegenBinary)
 			throws Exception {
 		this.properties = properties;
-		this.kindlegenZipArchive = kindlegenZipArchive;
-		var os = System.getProperty("os.name").toLowerCase();
-		this.installKindlegen(
-				(os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0));
+		this.kindlegenBinary = kindlegenBinary;
+		this.installKindlegen();
 	}
 
 	@Override
@@ -63,32 +57,30 @@ class MobiProducer implements DocumentProducer {
 				new File(this.properties.getRoot(), "index.mobi") };
 	}
 
-	private void installKindlegen(boolean unix) throws Exception {
+	private void installKindlegen() throws Exception {
 
-		if (unix) {
-			var kindlegen = properties.getMobi().getKindlegen();
-			var kindlegenLocation = kindlegen.getBinaryLocation();
-			var ext = "zip";
-			var dir = kindlegenLocation.getParentFile();
-			var out = new File(dir, "dl." + ext);
-			// if (dir.exists()) dir.delete();
-			Assert.isTrue(dir.exists() || dir.mkdirs(),
-					"couldn't create the directory for the archive, "
-							+ dir.getAbsolutePath());
-			try (var is = this.kindlegenZipArchive.getInputStream();
-					var os = new FileOutputStream(out)) {
-				FileCopyUtils.copy(is, os);
-			}
-			log.info("downloaded the file to " + out.getAbsolutePath() + ". Its size is "
-					+ out.getFreeSpace() + '.');
-			this.unpack(out, kindlegenLocation);
-			Assert.state(kindlegenLocation.exists(),
-					() -> "the kindlegen binary should live here "
-							+ kindlegenLocation.getAbsolutePath() + '.');
+		File binaryLocation = this.properties.getMobi().getKindlegen()
+				.getBinaryLocation();
+		try (InputStream inputStream = this.kindlegenBinary.getInputStream();
+				OutputStream outputStream = new FileOutputStream(binaryLocation)) {
+			FileCopyUtils.copy(inputStream, outputStream);
 		}
-		else {
-			log.info("this won't work on the Mac or Windows. Try Linux.");
-		}
+
+		/*
+		 * if (unix) { var kindlegen = properties.getMobi().getKindlegen(); var
+		 * kindlegenLocation = kindlegen.getBinaryLocation(); var ext = "zip"; var dir =
+		 * kindlegenLocation.getParentFile(); var out = new File(dir, "dl." + ext); // if
+		 * (dir.exists()) dir.delete(); Assert.isTrue(dir.exists() || dir.mkdirs(),
+		 * "couldn't create the directory for the archive, " + dir.getAbsolutePath()); try
+		 * (var is = this.kindlegenZipArchive.getInputStream(); var os = new
+		 * FileOutputStream(out)) { FileCopyUtils.copy(is, os); }
+		 * log.info("downloaded the file to " + out.getAbsolutePath() + ". Its size is " +
+		 * out.getFreeSpace() + '.'); this.unpack(out, kindlegenLocation);
+		 * Assert.state(kindlegenLocation.exists(), () ->
+		 * "the kindlegen binary should live here " + kindlegenLocation.getAbsolutePath()
+		 * + '.'); } else { log.info("this won't work on the Mac or Windows. Try Linux.");
+		 * }
+		 */
 	}
 
 	/*

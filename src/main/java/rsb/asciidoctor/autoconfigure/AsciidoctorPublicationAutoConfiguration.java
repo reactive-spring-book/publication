@@ -18,7 +18,8 @@ class AsciidoctorPublicationAutoConfiguration {
 
 	@Bean
 	MobiProducer mobiProducer(PublicationProperties pp,
-			@Value("classpath:/kindlegen.zip") Resource kindlegen) throws Exception {
+			@Value("classpath:/ci/bin/kindlegen.zip") Resource kindlegen)
+			throws Exception {
 		return new MobiProducer(pp, kindlegen);
 	}
 

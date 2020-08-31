@@ -16,25 +16,32 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
+	/*
+	 * @Bean MobiProducer mobiProducer(PublicationProperties pp,
+	 *
+	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new
+	 * MobiProducer(pp, kindlegen); }
+	 */
+
 	@Bean
-	MobiProducer mobiProducer(PublicationProperties pp,
-			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
-		return new MobiProducer(pp, kindlegen);
+	EpubProducer epubProducer(PublicationProperties pp) {
+		return new EpubProducer(pp);
 	}
 
-	/*
-	 * @Bean EpubProducer epubProducer(PublicationProperties pp) { return new
-	 * EpubProducer(pp); }
-	 *
-	 * @Bean HtmlProducer htmlProducer(PublicationProperties pp) { return new
-	 * HtmlProducer(pp); }
-	 *
-	 * @Bean ScreenPdfProducer screenPdfProducer(PublicationProperties pp) { return new
-	 * ScreenPdfProducer(pp); }
-	 *
-	 * @Bean PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) { return
-	 * new PrepressPdfProducer(pp); }
-	 */
+	@Bean
+	HtmlProducer htmlProducer(PublicationProperties pp) {
+		return new HtmlProducer(pp);
+	}
+
+	@Bean
+	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
+		return new ScreenPdfProducer(pp);
+	}
+
+	@Bean
+	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
+		return new PrepressPdfProducer(pp);
+	}
 
 	@Bean
 	DocumentProducerProcessor documentProducerProcessor(Asciidoctor ad,

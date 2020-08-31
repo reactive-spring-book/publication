@@ -72,21 +72,11 @@ class MobiProducer implements DocumentProducer {
 			FileCopyUtils.copy(inputStream, outputStream);
 		}
 
-		/*
-		 * if (unix) { var kindlegen = properties.getMobi().getKindlegen(); var
-		 * kindlegenLocation = kindlegen.getBinaryLocation(); var ext = "zip"; var dir =
-		 * kindlegenLocation.getParentFile(); var out = new File(dir, "dl." + ext); // if
-		 * (dir.exists()) dir.delete(); Assert.isTrue(dir.exists() || dir.mkdirs(),
-		 * "couldn't create the directory for the archive, " + dir.getAbsolutePath()); try
-		 * (var is = this.kindlegenZipArchive.getInputStream(); var os = new
-		 * FileOutputStream(out)) { FileCopyUtils.copy(is, os); }
-		 * log.info("downloaded the file to " + out.getAbsolutePath() + ". Its size is " +
-		 * out.getFreeSpace() + '.'); this.unpack(out, kindlegenLocation);
-		 * Assert.state(kindlegenLocation.exists(), () ->
-		 * "the kindlegen binary should live here " + kindlegenLocation.getAbsolutePath()
-		 * + '.'); } else { log.info("this won't work on the Mac or Windows. Try Linux.");
-		 * }
-		 */
+		Assert.state(
+				0 == Runtime.getRuntime()
+						.exec("chmod a+x " + binaryLocation.getAbsolutePath()).waitFor(),
+				"couldn't make the kindlegen binary executable");
+		// kindlegen.getBinaryLocation()
 	}
 
 	/*

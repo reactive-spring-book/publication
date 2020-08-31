@@ -117,15 +117,12 @@ class MobiProducer implements DocumentProducer {
 		}
 	}
 
+	@Deprecated
 	private void unpack(File dl, File kindlegen) throws Exception {
 		log.info("need to unpack " + dl.getAbsolutePath() + " to "
 				+ kindlegen.getAbsolutePath() + ".");
 
 		var parentFile = kindlegen.getParentFile();
-		// if (parentFile.exists()) {
-		// parentFile.delete();
-		//
-		// }
 
 		parentFile.mkdirs();
 

@@ -24,7 +24,7 @@ class AsciidoctorPublicationAutoConfiguration {
 		return new HtmlProducer(pp);
 	}
 
-	// @Bean
+	@Bean
 	MobiProducer mobiProducer(PublicationProperties pp) throws Exception {
 		return new MobiProducer(pp);
 	}

@@ -3,7 +3,8 @@ package rsb.asciidoctor.autoconfigure;
 import lombok.extern.log4j.Log4j2;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.internal.AsciidoctorCoreException;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.net.URL;
  * The environment variable should point to the location of `kindlegen` itself. You
  * specify that and this code will download the requisite binary from Amazon and make sure
  * it's there for macOS or Unix variants.
- *
+ * <p>
  * TODO as of 31/08/2020, the Kindlegen utility no longer seems to be available for
  * download in the usual places.
  */
@@ -25,11 +26,22 @@ class MobiProducer implements DocumentProducer {
 
 	private final PublicationProperties properties;
 
-	MobiProducer(PublicationProperties properties) throws Exception {
+	private final Resource kindlegenZipArchive;
+
+	MobiProducer(PublicationProperties properties,
+			@Value("classpath:/kindlegen.zip") Resource kindlegenZipArchive)
+			throws Exception {
 		this.properties = properties;
+		this.kindlegenZipArchive = kindlegenZipArchive;
 		var os = System.getProperty("os.name").toLowerCase();
-		this.downloadKindlegen(os.contains("mac"),
+		/*
+		 * this.downloadKindlegen(os.contains("mac"), (os.contains("nix") ||
+		 * os.contains("nux") || os.indexOf("aix") > 0) );
+		 */
+
+		this.installKindlegen(
 				(os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0));
+
 	}
 
 	@Override
@@ -55,6 +67,41 @@ class MobiProducer implements DocumentProducer {
 				new File(this.properties.getRoot(), "index.mobi") };
 	}
 
+	private void installKindlegen(boolean unix) throws Exception {
+
+		if (unix) {
+			var kindlegen = properties.getMobi().getKindlegen();
+			var kindlegenLocation = kindlegen.getBinaryLocation();
+			var ext = "zip";
+			var dir = kindlegenLocation.getParentFile();
+			var out = new File(dir, "dl." + ext);
+			// if the directory doesn't exist, lets make it exist and install the archive
+			if (!dir.exists() || !out.exists()) {
+				Assert.isTrue(dir.exists() || dir.mkdirs(),
+						"couldn't create the directory for the archive, "
+								+ dir.getAbsolutePath());
+				try (var is = this.kindlegenZipArchive.getInputStream();
+						var os = new FileOutputStream(out)) {
+					FileCopyUtils.copy(is, os);
+				}
+				log.info("downloaded the file to " + out.getAbsolutePath() + " to "
+						+ kindlegenLocation.getAbsolutePath());
+			}
+
+			if (!kindlegenLocation.exists()) {
+				this.unpack(out, kindlegenLocation);
+			}
+		}
+		else {
+			log.info("this won't work on the Mac or Windows. Try Linux.");
+		}
+	}
+
+	/*
+	 * the archive for Kindlegen is no longer accessible from Amazon. Thanks Ammazon! So,
+	 * for now, we bundle our own until we can figure out what the upgrade path is.
+	 */
+	@Deprecated
 	private void downloadKindlegen(boolean mac, boolean nix) throws Exception {
 
 		var kindlegen = properties.getMobi().getKindlegen();

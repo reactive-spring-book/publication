@@ -53,6 +53,9 @@ class MobiProducer implements DocumentProducer {
 							+ this.properties.getRoot().getParentFile().getAbsolutePath()
 							+ "then don't worry about the error.");
 		}
+		catch (Throwable t) {
+			log.warn("something went wrong! ", t);
+		}
 		return new File[] { new File(this.properties.getRoot(), "index-kf8.epub"),
 				new File(this.properties.getRoot(), "index.mobi") };
 	}

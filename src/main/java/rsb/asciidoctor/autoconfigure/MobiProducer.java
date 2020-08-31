@@ -73,10 +73,10 @@ class MobiProducer implements DocumentProducer {
 			var ext = "zip";
 			var dir = kindlegenLocation.getParentFile();
 			var out = new File(dir, "dl." + ext);
-			Assert.state(!dir.exists() || dir.delete(),
-					"the directory " + dir.getAbsolutePath() + " should not exist!");
-			Assert.isTrue(dir.mkdirs(), "couldn't create the directory for the archive, "
-					+ dir.getAbsolutePath());
+			// if (dir.exists()) dir.delete();
+			Assert.isTrue(dir.exists() || dir.mkdirs(),
+					"couldn't create the directory for the archive, "
+							+ dir.getAbsolutePath());
 			try (var is = this.kindlegenZipArchive.getInputStream();
 					var os = new FileOutputStream(out)) {
 				FileCopyUtils.copy(is, os);

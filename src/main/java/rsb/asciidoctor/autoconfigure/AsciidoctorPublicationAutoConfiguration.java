@@ -24,22 +24,22 @@ class AsciidoctorPublicationAutoConfiguration {
 		return new MobiProducer(pp, kindlegen);
 	}
 
-	@Bean
+	// @Bean
 	EpubProducer epubProducer(PublicationProperties pp) {
 		return new EpubProducer(pp);
 	}
 
-	@Bean
+	// @Bean
 	HtmlProducer htmlProducer(PublicationProperties pp) {
 		return new HtmlProducer(pp);
 	}
 
-	@Bean
+	// @Bean
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
 		return new ScreenPdfProducer(pp);
 	}
 
-	@Bean
+	// @Bean
 	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
 		return new PrepressPdfProducer(pp);
 	}

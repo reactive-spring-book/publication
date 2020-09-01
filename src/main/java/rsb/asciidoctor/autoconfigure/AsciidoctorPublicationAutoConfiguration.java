@@ -16,7 +16,10 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
-	// TODO fix this! it's not able to find the kindlegen binary! WHYYYY.
+	@Bean
+	EpubProducer epubProducer(PublicationProperties pp) {
+		return new EpubProducer(pp);
+	}
 
 	@Bean
 	MobiProducer mobiProducer(PublicationProperties pp,
@@ -24,22 +27,17 @@ class AsciidoctorPublicationAutoConfiguration {
 		return new MobiProducer(pp, kindlegen);
 	}
 
-	// @Bean
-	EpubProducer epubProducer(PublicationProperties pp) {
-		return new EpubProducer(pp);
-	}
-
-	// @Bean
+	@Bean
 	HtmlProducer htmlProducer(PublicationProperties pp) {
 		return new HtmlProducer(pp);
 	}
 
-	// @Bean
+	@Bean
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
 		return new ScreenPdfProducer(pp);
 	}
 
-	// @Bean
+	@Bean
 	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
 		return new PrepressPdfProducer(pp);
 	}

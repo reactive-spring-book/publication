@@ -19,7 +19,7 @@ cache:
 
 script:
 - ci/render-book.sh
-- mvn -e verify deploy
+#- mvn -e verify deploy
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

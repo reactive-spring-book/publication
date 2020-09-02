@@ -21,8 +21,19 @@ class PublicationProperties {
 
 	private Mobi mobi = new Mobi();
 
+	private Html html = new Html();
+
+	@Data
+	public static class Html {
+
+		private boolean enabled;
+
+	}
+
 	@Data
 	public static class Pdf {
+
+		private boolean enabled;
 
 		private String isbn;
 
@@ -41,12 +52,16 @@ class PublicationProperties {
 	@Data
 	public static class Epub {
 
+		private boolean enabled;
+
 		private String isbn;
 
 	}
 
 	@Data
 	public static class Mobi {
+
+		private boolean enabled;
 
 		private String isbn;
 

@@ -5,6 +5,7 @@ import org.asciidoctor.Asciidoctor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,28 +17,36 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
-	@Bean
-	EpubProducer epubProducer(PublicationProperties pp) {
-		return new EpubProducer(pp);
-	}
+	/*
+	 * @Bean
+	 *
+	 * @ConditionalOnProperty(name = "publication.epub.enabled", havingValue = "true",
+	 * matchIfMissing = true) EpubProducer epubProducer(PublicationProperties pp) { return
+	 * new EpubProducer(pp); }
+	 *
+	 * @Bean
+	 *
+	 * @ConditionalOnProperty(name = "publication.mobi.enabled", havingValue = "true",
+	 * matchIfMissing = true) MobiProducer mobiProducer(PublicationProperties pp,
+	 *
+	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new
+	 * MobiProducer(pp, kindlegen); }
+	 *
+	 * @Bean
+	 *
+	 * @ConditionalOnProperty(name = "publication.html.enabled", havingValue = "true",
+	 * matchIfMissing = true) HtmlProducer htmlProducer(PublicationProperties pp) { return
+	 * new HtmlProducer(pp); }
+	 */
 
 	@Bean
-	MobiProducer mobiProducer(PublicationProperties pp,
-			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
-		return new MobiProducer(pp, kindlegen);
-	}
-
-	@Bean
-	HtmlProducer htmlProducer(PublicationProperties pp) {
-		return new HtmlProducer(pp);
-	}
-
-	@Bean
+	@ConditionalOnProperty(name = "publication.pdf.enabled", havingValue = "true", matchIfMissing = true)
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
 		return new ScreenPdfProducer(pp);
 	}
 
 	@Bean
+	@ConditionalOnProperty(name = "publication.pdf.enabled", havingValue = "true", matchIfMissing = true)
 	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
 		return new PrepressPdfProducer(pp);
 	}

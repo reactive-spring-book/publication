@@ -6,9 +6,9 @@ before_install:
 jdk:
   - oraclejdk11
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get -y install calibre
+#before_install:
+#  - sudo apt-get update
+#  - sudo apt-get -y install calibre
 
 cache:
   directories:
@@ -18,8 +18,8 @@ cache:
   - $HOME/bin/kindlegen/
 
 script:
-- mvn -e verify deploy
 - ci/render-book.sh
+- mvn -e verify deploy
 
 env:
 - SPRING_PROFILES_ACTIVE=ci

@@ -73,8 +73,10 @@ class PublicationProperties {
 
 			private File binaryLocation;
 
+			@Deprecated
 			private String osxDownloadURI = "https://kindlegen.s3.amazonaws.com/KindleGen_Mac_i386_v2_9.zip";
 
+			@Deprecated
 			private String unixDownloadURI = "http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz";
 
 			Kindlegen() {

@@ -47,6 +47,24 @@ class PublicationProperties {
 
 		}
 
+		private Prepress prepress = new Prepress();
+
+		private Screen screen = new Screen();
+
+		@Data
+		public static class Prepress {
+
+			private boolean enabled;
+
+		}
+
+		@Data
+		public static class Screen {
+
+			private boolean enabled;
+
+		}
+
 	}
 
 	@Data

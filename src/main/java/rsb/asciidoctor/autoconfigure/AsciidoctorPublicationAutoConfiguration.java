@@ -37,13 +37,13 @@ class AsciidoctorPublicationAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnProperty(name = "publication.pdf.enabled", havingValue = "true", matchIfMissing = true)
+	@ConditionalOnProperty(name = "publication.pdf.screen.enabled", havingValue = "true", matchIfMissing = true)
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {
 		return new ScreenPdfProducer(pp);
 	}
 
 	@Bean
-	@ConditionalOnProperty(name = "publication.pdf.enabled", havingValue = "true", matchIfMissing = true)
+	@ConditionalOnProperty(name = "publication.pdf.prepress.enabled", havingValue = "true", matchIfMissing = true)
 	PrepressPdfProducer prepressPdfProducer(PublicationProperties pp) {
 		return new PrepressPdfProducer(pp);
 	}

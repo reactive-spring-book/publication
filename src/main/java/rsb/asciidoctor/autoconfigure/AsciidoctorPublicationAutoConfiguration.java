@@ -17,27 +17,24 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
-	/*
-	 * @Bean
-	 *
-	 * @ConditionalOnProperty(name = "publication.epub.enabled", havingValue = "true",
-	 * matchIfMissing = true) EpubProducer epubProducer(PublicationProperties pp) { return
-	 * new EpubProducer(pp); }
-	 *
-	 * @Bean
-	 *
-	 * @ConditionalOnProperty(name = "publication.mobi.enabled", havingValue = "true",
-	 * matchIfMissing = true) MobiProducer mobiProducer(PublicationProperties pp,
-	 *
-	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new
-	 * MobiProducer(pp, kindlegen); }
-	 *
-	 * @Bean
-	 *
-	 * @ConditionalOnProperty(name = "publication.html.enabled", havingValue = "true",
-	 * matchIfMissing = true) HtmlProducer htmlProducer(PublicationProperties pp) { return
-	 * new HtmlProducer(pp); }
-	 */
+	@Bean
+	@ConditionalOnProperty(name = "publication.epub.enabled", havingValue = "true", matchIfMissing = true)
+	EpubProducer epubProducer(PublicationProperties pp) {
+		return new EpubProducer(pp);
+	}
+
+	@Bean
+	@ConditionalOnProperty(name = "publication.mobi.enabled", havingValue = "true", matchIfMissing = true)
+	MobiProducer mobiProducer(PublicationProperties pp,
+			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
+		return new MobiProducer(pp, kindlegen);
+	}
+
+	@Bean
+	@ConditionalOnProperty(name = "publication.html.enabled", havingValue = "true", matchIfMissing = true)
+	HtmlProducer htmlProducer(PublicationProperties pp) {
+		return new HtmlProducer(pp);
+	}
 
 	@Bean
 	@ConditionalOnProperty(name = "publication.pdf.enabled", havingValue = "true", matchIfMissing = true)

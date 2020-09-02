@@ -58,6 +58,7 @@ class PublicationProperties {
 
 		}
 
+		// these things take time! it can be useful to disable either one if not both.
 		@Data
 		public static class Screen {
 

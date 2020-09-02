@@ -16,21 +16,18 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass(Asciidoctor.class)
 class AsciidoctorPublicationAutoConfiguration {
 
-	@Bean
-	EpubProducer epubProducer(PublicationProperties pp) {
-		return new EpubProducer(pp);
-	}
-
-	@Bean
-	MobiProducer mobiProducer(PublicationProperties pp,
-			@Value("classpath:/kindlegen") Resource kindlegen) throws Exception {
-		return new MobiProducer(pp, kindlegen);
-	}
-
-	@Bean
-	HtmlProducer htmlProducer(PublicationProperties pp) {
-		return new HtmlProducer(pp);
-	}
+	/*
+	 * @Bean EpubProducer epubProducer(PublicationProperties pp) { return new
+	 * EpubProducer(pp); }
+	 *
+	 * @Bean MobiProducer mobiProducer(PublicationProperties pp,
+	 *
+	 * @Value("classpath:/kindlegen") Resource kindlegen) throws Exception { return new
+	 * MobiProducer(pp, kindlegen); }
+	 *
+	 * @Bean HtmlProducer htmlProducer(PublicationProperties pp) { return new
+	 * HtmlProducer(pp); }
+	 */
 
 	@Bean
 	ScreenPdfProducer screenPdfProducer(PublicationProperties pp) {

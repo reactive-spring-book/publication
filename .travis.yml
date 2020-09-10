@@ -18,7 +18,7 @@ cache:
   - $HOME/bin/kindlegen/
 
 script:
-- ci/render-book.sh
+- ci/render-book-and-publish.sh
 #- mvn -e verify deploy
 
 env:

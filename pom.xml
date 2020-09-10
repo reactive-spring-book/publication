@@ -10,18 +10,9 @@
         <relativePath/>
     </parent>
     <artifactId>production</artifactId>
-
     <properties>
-
         <asciidoctorj-pdf.version>1.5.0-alpha.16</asciidoctorj-pdf.version>
-        <asciidoctorj-epub3.version>1.5.0-alpha.8.1</asciidoctorj-epub3.version>
-
-        <!--
-            // doesn't work (yet)
-            <asciidoctorj-pdf.version>1.5.3</asciidoctorj-pdf.version>
-            <asciidoctorj-epub3.version> 1.5.0-alpha.17 </asciidoctorj-epub3.version>
-        -->
-
+        <asciidoctorj-epub3.version>1.5.0-alpha.18</asciidoctorj-epub3.version>
     </properties>
 
     <dependencies>
@@ -32,7 +23,10 @@
         <dependency>
             <groupId>org.asciidoctor</groupId>
             <artifactId>asciidoctorj-epub3</artifactId>
-            <version>${asciidoctorj-epub3.version}</version>
+            <version>
+                ${asciidoctorj-epub3.version}
+            </version>
+
         </dependency>
         <dependency>
             <groupId>org.asciidoctor</groupId>
@@ -142,7 +136,7 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>   
+    </build>
     <repositories>
         <repository>
             <snapshots>

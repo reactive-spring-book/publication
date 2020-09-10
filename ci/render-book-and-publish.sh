@@ -46,3 +46,17 @@ export PUBLICATION_TARGET=${START_DIR}/target/book-output
 export PUBLICATION_CODE=${CODE_CHECKOUT}
 
 java -jar ${START_DIR}/target/production-0.0.1-SNAPSHOT.jar
+
+if [ -d "$PUBLICATION_TARGET" ]; then
+    cd $BOOK_CHECKOUT
+    ARTIFACT_TAG=output-artifacts
+    git remote set-url origin $RSB_URI
+    git checkout $ARTIFACT_TAG
+
+    OUTPUT=${BOOK_CHECKOUT}/output
+    mkdir -p $OUTPUT
+    cp -r $PUBLICATION_TARGET/* $OUTPUT
+    git add $OUTPUT
+    git commit -am "adding built artifacts $(date)..."
+    git push origin $ARTIFACT_TAG
+fi

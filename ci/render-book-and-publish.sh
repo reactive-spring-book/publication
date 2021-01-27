@@ -7,7 +7,7 @@ INIT_DATE=`date`
 OUT_ROOT=${HOME}/book-ci-root
 BOOK_CHECKOUT=${OUT_ROOT}/docs
 CODE_CHECKOUT=${OUT_ROOT}/code
-RSB_URI=https://${RSB_GITHUB_TOKEN}@github.com/reactive-spring-book/reactive-spring-book.git
+RSB_URI=https://${RSB_GITHUB_TOKEN}@github.com/joshlong/reactive-spring-book.git
 
 rm -rf $BOOK_CHECKOUT
 
